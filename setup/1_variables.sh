@@ -7,15 +7,14 @@ GIT_URL_OPENEDX_DEV='git@github.com:himoldeonline/openedx-dev.git'
 BRANCH_OPENEDX_DEV='setup'
 GIT_URL_TIBETHEME='git@github.com:himoldeonline/openedx-tibetheme.git'
 GIT_URL_TUTOR='https://github.com/overhangio/tutor'
-USER_HOME="/home/$USER"
 PYTHON_VERSION="3.9.6"
 
 DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
 
 # ..set directory variables that depend on username that is read from input
-SSH_KEY="$USER_HOME/.ssh/id_rsa_himoldeonline"
-GIT_CONFIG_FILE="$USER_HOME/.gitconfig"
-TUTOR_ROOT="$USER_HOME/.local/share/tutor"
+SSH_KEY="$HOME/.ssh/id_rsa_himoldeonline"
+GIT_CONFIG_FILE="$HOME/.gitconfig"
+TUTOR_ROOT="$HOME/.local/share/tutor"
 DEV_ROOT=~/himoldeonline
 
 # ..directories for storing each repository

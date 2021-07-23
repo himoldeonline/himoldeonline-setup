@@ -48,18 +48,10 @@ _get_docker () {
   then
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg &&
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-    sudo apt-get update
+    #sudo apt-get update
     sudo apt-get install -y \
     docker-ce docker-ce-cli containerd.io -y
     fi
 }
 
  
-_get_pyenv () {
-  if ! _has_command pyenv
-  then
-   curl https://pyenv.run | bash
-   pyenv install -v 3.9.6
-   pyenv global 3.9.6
-  fi
-}

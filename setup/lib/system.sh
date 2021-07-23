@@ -65,3 +65,21 @@ _append_to_profile () {
   fi
 
 }
+
+
+
+_log () {
+  # arg 1: command inside double qoutes -> example: "sudo apt update"
+  # arg 2: (optional): name of logfile -> example: install (will save file as install.log)
+  mkdir -p ./logs
+  _TIME=$(date +"%Y-%m-%d %H:%M:%S")
+  _CMD=$1
+  _FILENAME=$2
+  if [ ! -n "$2" ]; then
+    _FILENAME='global'
+  fi
+  echo -e "\n\nTime: $_TIME" >> ./logs/$_FILENAME.log 2>&1
+  eval $_CMD >> ./logs/$_FILENAME.log 2>&1 ||
+    _info_display 'error' "Reading Log: /logs/$_FILENAME.log \n\nStart\n`\
+    grep -rn  -A 100 "$_TIME" ./logs/$_FILENAME.log`\nEND\n\n"
+}
