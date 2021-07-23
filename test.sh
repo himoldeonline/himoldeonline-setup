@@ -6,19 +6,36 @@
 
 # todo (might implement):
 # ..install xblock sdk
+source ./setup/lib/display.sh
+source ./setup/lib/validate.sh
+source ./setup/lib/system.sh
+source ./setup/lib/variables.sh
+source ./setup/lib/log.sh
 
+export _LOG_FILE='setup.log'
 
 ### Start ##################
 
 # ..load functions and variables from these files
-source ./lib/repositories.sh
-source ./lib/display.sh
-source ./lib/control.sh
-source ./lib/system.sh
-source ./lib/paths.sh
-source ./lib/tutor.sh
-source ./lib/time.sh
-ssh-agent sh -c "ssh-add $SSH_KEY; git clone $GIT_URL_CRAFT_DOCKER $CRAFT_DOCKER_ROOT" || _continue
-_banner "Checkout Docker Branch in $CRAFT_DOCKER_ROOT"
-_info_display 'info' "Switching craftcms docker branch to $BRANCH_CRAFT_DOCKER"
-cd $CRAFT_DOCKER_ROOT &&  ssh-agent sh -c "ssh-add $SSH_KEY; git checkout $BRANCH_CRAFT_DOCKER" || exit
+
+_log_init
+
+clear
+
+
+
+# _header 'Validating Environment'
+# source ./setup/1_environment.sh
+
+# _header 'Installing Packages'
+# source ./setup/2_installation.sh
+
+_header 'Setting up Git Authentication'
+source ./setup/3_github.sh
+
+# _header 'Cloning Repositories'
+# source ./setup/4_clone.sh
+
+
+# remove log if script makes it to this point
+# _log_remove

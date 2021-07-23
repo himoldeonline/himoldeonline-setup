@@ -1,5 +1,4 @@
 _info_display ""  "run tutor"
-#HUSK legg til path for tutor 
 
 # For when running multiple tutor commands
 
