@@ -9,18 +9,25 @@ fi
 # OS-dependent installations sourced by getting correct path: /setup/lib/dist_<distro>.sh
 _update
 _install_packages
-_get_docker
+
+if ! _running_wsl; then
+  _get_docker
+fi
+
 
 # OS-independent installations
 _get_pyenv () {
   PYTHON_VERSION="3.9.6"
   _sub_info "Installing pyenv and python $PYTHON_VERSION"
   if ! _has_command pyenv; then
+    # install pyenv
     curl https://pyenv.run | bash > /dev/null
-      if ! _has_command pyenv; then
-        _append_to_profile 'export PATH="$HOME/.pyenv/bin:$PATH"'
-        export PATH="$HOME/.pyenv/bin:$PATH"
-      fi
+
+    # after install, if not call-able from $PATH
+    if ! _has_command pyenv; then
+      _append_to_profile 'export PATH="$HOME/.pyenv/bin:$PATH"'
+      export PATH="$HOME/.pyenv/bin:$PATH"
+    fi
     _append_to_profile 'eval "$(pyenv init -)"'
     _append_to_profile 'eval "$(pyenv virtualenv-init -)"'
 
@@ -29,7 +36,3 @@ _get_pyenv () {
   fi
 }
 _get_pyenv
-
-_get_tutor () {
-
-}

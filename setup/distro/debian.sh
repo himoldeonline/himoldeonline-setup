@@ -23,7 +23,7 @@ _install_packages () {
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
 		_info_installation $i
-    _contin
+    _continue
     sudo apt-get install -y $i 1> /dev/null 2> .setup.log || _log_tail_exit
   done
 }
