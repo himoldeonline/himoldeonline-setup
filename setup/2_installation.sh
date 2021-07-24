@@ -26,4 +26,4 @@ _get_pyenv () {
     pyenv global $PYTHON_VERSION > /dev/null
   fi
 }
-# _get_pyenv
+_get_pyenv

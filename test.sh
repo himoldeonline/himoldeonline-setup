@@ -12,7 +12,6 @@ source ./setup/lib/system.sh
 source ./setup/lib/variables.sh
 source ./setup/lib/log.sh
 
-export _LOG_FILE='setup.log'
 
 ### Start ##################
 

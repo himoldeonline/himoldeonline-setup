@@ -23,3 +23,5 @@ REPO_INSTRUCTION="$DEV_ROOT/open_edx_instruction_source/openedx-instructions"
 REPO_OPENEDX_DEV="$DEV_ROOT/open_edx_dev_source/openedx-dev"
 REPO_TIBETHEME="$DEV_ROOT/open_edx_themes_source/tibetheme"
 REPO_TUTOR="$DEV_ROOT/tutor_source/tutor"
+
+_LOG_FILE='setup.log'
