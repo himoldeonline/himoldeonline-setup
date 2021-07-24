@@ -1,10 +1,11 @@
 # validating environment
-
+_log_error "Could not delete $repo"
+exit
 _info_validation  "Distro is either Debian, Fedora or Ubuntu"
-  _distro_supported && _validation_passed || _abort "You are not running a supported distribution of Linux"
+  _distro_supported && _info_ok || _abort "You are not running a supported distribution of Linux"
 
 _info_validation  "Script is run as root"
-  _is_root && _abort 'Script must NOT be run as root or with root privileges' || _validation_passed
+  _is_root && _abort 'Script must NOT be run as root or with root privileges' || _info_ok
 
   _ROPOSITORIES=(
     $REPO_TUTOR $REPO_TIBETHEME $REPO_OPENEDX_DEV $REPO_INSTRUCTION $REPO_OPENEDX_PLATFORM
@@ -19,11 +20,11 @@ _info_validation  "Script is run as root"
          && rm -rf $repo  || _log_error "Could not delete $repo"
       fi
     fi
-    _validation_passed
+    _info_ok
   done
 
 _info_validation "Check if .bashrc and/or .zshrc"
-_has_profiles && _validation_passed || _abort 'Could not find any shell profile'
+_has_profiles && _info_ok || _abort 'Could not find any shell profile'
 
 _info_validation  "Checking if running inside Windows Subsystem for Linux"
 if _running_wsl; then

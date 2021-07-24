@@ -1,8 +1,9 @@
 # install base dependencies and apps
 
-if [[ $DISTRO == *Fedora* ]]; then source ./setup/lib/dist_fedora.sh
-elif [[ $DISTRO == *Debian* ]]; then source ./setup/lib/dist_debian.sh
-elif [[ $DISTRO == *Ubuntu* ]]; then source ./setup/lib/dist_ubuntu.sh
+DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
+if [[ $DISTRO == *Fedora* ]]; then source ./setup/distro/fedora.sh
+elif [[ $DISTRO == *Debian* ]]; then source ./setup/distro/debian.sh
+elif [[ $DISTRO == *Ubuntu* ]]; then source ./setup/distro/ubuntu.sh
 fi
 
 # OS-dependent installations sourced by getting correct path: /setup/lib/dist_<distro>.sh
@@ -12,6 +13,7 @@ _get_docker
 
 # OS-independent installations
 _get_pyenv () {
+  PYTHON_VERSION="3.9.6"
   _sub_info "Installing pyenv and python $PYTHON_VERSION"
   if ! _has_command pyenv; then
     curl https://pyenv.run | bash > /dev/null
@@ -27,3 +29,7 @@ _get_pyenv () {
   fi
 }
 _get_pyenv
+
+_get_tutor () {
+
+}

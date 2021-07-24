@@ -174,6 +174,7 @@ _print_ssh_pub () {
 }
 
 _distro_supported () {
+  DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
   if [[ $DISTRO == *Fedora* ]]; then return 0
   elif [[ $DISTRO == *Debian* ]]; then return 0
   elif [[ $DISTRO == *Ubuntu* ]]; then return 0

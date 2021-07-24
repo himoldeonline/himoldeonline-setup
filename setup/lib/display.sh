@@ -1,87 +1,63 @@
 # pretty printing text in terminal
 
 _set_color (){
-    HUE_START="\e[0;$1"
-    HUE_END='\e[0m'
+  HUE_START="\e[0;$1"
+  HUE_END='\e[0m'
 }
 
 _abort () {
-    _set_color 31m
-    BOX="${HUE_START}[exit]${HUE_END}"
-    printf  "${BOX}\t$1"
-    exit
+  _set_color 31m
+  BOX="${HUE_START}[exit]${HUE_END}"
+  echo -e "${BOX}\t$1"
+  exit
 }
 
 _sub_info () {
-    _set_color 32m
-    #BOX="${HUE_START}[info]${HUE_END}"
-    printf  "${HUE_START}\t\t$1${HUE_END}\n"
+  _set_color 32m
+  echo -e "${HUE_START}\t\t$1${HUE_END}"
 }
 
-
-_validation_passed () {
+_info_ok () {
   _set_color 32m
-  printf  "${HUE_START}\t[OK]${HUE_END}\n\n"
+  echo -e  "${HUE_START}\t[OK]${HUE_END}"
+  sleep 0.5
 }
 
 _info_error () {
   _set_color 31m
   BOX="${HUE_START}[error]${HUE_END}"
-  printf   "\t${BOX}\t\t$1\n"
+  echo -e  "\t${BOX}\t\t$1"
   sleep 0.5
 }
 
 _info_validation () {
-    _set_color 35m
-    BOX="${HUE_START}[validation]${HUE_END}"
-    printf   "\t${BOX}\t$1\n"
-    sleep 0.5
+  _set_color 35m
+  BOX="${HUE_START}[validation]${HUE_END}"
+  echo -e  "\t${BOX}\t$1"
+  sleep 0.5
 }
 
 _info_installation () {
-    _set_color 35m
-    BOX="${HUE_START}[Installing]${HUE_END}"
-    printf   "\t${BOX}\t$1\n"
+  _set_color 35m
+  BOX="${HUE_START}[Installing]${HUE_END}"
+  echo -e "\t${BOX}\t$1"
 }
 
-# _passed () {
-#     _set_color 33m
-#     BOX="${HUE_START}[validation]${HUE_END}"
-#     printf  "${HUE_START}\tpassed${HUE_END}\n"
-# }
-
-_info_display () {
-  # ..1st arg(level of warning): 'info', 'warning' or 'error'
-  # ..2nd arg: message
-  if [[ $1 == 'error' ]]; then
-    HUE_START='\e[0;31m'
-    HUE_END='\e[0m'
-    BOX="${HUE_START}[$1]${HUE_END}"
-  fi
-  if [[ $1 == 'warning' ]]; then
-    HUE_START='\e[0;33m'
-    HUE_END='\e[0m'
-    BOX="${HUE_START}[$1]${HUE_END}"
-  fi
-    echo -e -n "${BOX}\t$2"
+_info_cloning () {
+  _set_color 96m
+  BOX="${HUE_START}[Cloning]${HUE_END}"
+  echo -e "\t${BOX}\t$1"
 }
 
 _header () {
   # 1st arg: title message (inside double qoutes)
-  HUE_START='\033[0;93m'
-  HUE_END='\033[0m'
-  _L='###'
-  BOX="${HUE_START}\n$_L $1 $_L\n${HUE_END}"
-  echo -e "$BOX"
+  echo -e "\033[0;93m\n### $1 ###\n\033[0m"
 }
 
 _banner () {
   # 1st arg: title message "inside double qoutes"
   sleep 0.5 && clear
-  HUE_START='\033[0;32m'
-  HUE_END='\033[0m'
-  BOX="${HUE_START}\n\n\t$1\n${HUE_END}"
-  echo -e "\n\n\t$BOX\n"
+  echo -e "\n\t\033[0;32m$1\033[0m\n"
 }
 
 _list_options () {

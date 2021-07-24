@@ -1,6 +1,6 @@
-_info_display ""  "run tutor"
-
 # For when running multiple tutor commands
+
+_log_msg 'Installing Open edX with Tutor'
 
 _tutor_from_scratch_build_dev () {
   # using our configurations, we build the images needed for running open edx dev
@@ -8,15 +8,27 @@ _tutor_from_scratch_build_dev () {
   # ..tutor local quickstart
   # ..tutor local stop
   # ..tutor images build openedx-dev
-  tutor config save
-  tutor local dc pull && sleep 2 || exit
-  tutor local start --detach && sleep 2 || exit
-  tutor local init && sleep 2 || exit
-  tutor images build openedx && sleep 2 || exit
-  tutor local stop && sleep 2 || exit
-  tutor images build openedx-dev && sleep 2 || exit
-  tutor dev start --detach && sleep 2 || exit
-  tutor dev run lms pip install --requirement requirements/edx/development.txt && sleep 2
-  tutor dev run lms npm install && sleep 2 || exit
-  tutor dev run lms openedx-assets build --env=dev && sleep 2 || exit
+  tutor config save  1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor local dc pull  1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor local start --detach 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor local init 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor images build openedx 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor local stop 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor images build openedx-dev 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor dev start --detach 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor dev run lms pip install --requirement requirements/edx/development.txt 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor dev run lms npm install 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  sleep 2
+  tutor dev run lms openedx-assets build --env=dev 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
 }
+
+_tutor_from_scratch_build_dev
