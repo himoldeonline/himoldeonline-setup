@@ -36,7 +36,7 @@ _install_packages () {
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
   	_info_installation $i
-    sudo dnf install -y &>> $_LOG_FILE || _log_tail_exit
+    sudo dnf install -y $i &>> $_LOG_FILE || _log_tail_exit
   done
 }
 
