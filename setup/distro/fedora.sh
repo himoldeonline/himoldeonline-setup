@@ -31,6 +31,7 @@ _install_packages () {
   do
     echo -e "\t\t\t$i"
   done
+  _continue "\t\t"
 
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
