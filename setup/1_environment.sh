@@ -38,4 +38,6 @@ if _running_wsl; then
     _abort "$M1 $M2 $M3"
   fi
    _info_ok "yes"
+ else
+   _info_ok "no"
 fi
