@@ -9,22 +9,36 @@ PACKAGES=(
 	libxslt1-dev lib32z1-dev libjpeg-turbo8-dev
 )
 
-PACKAGES_TO_BE_INSTALLED=""
+
 _update () {
-	_sub_info  "Updating System"
-  sudo apt-get update > /dev/null && sudo apt-get upgrade -y  > /dev/null
+	_info_installation  "Updating System"
+  sudo apt-get update &>> $_LOG_FILE && sudo apt-get upgrade -y  &>> $_LOG_FILE
+    _info_ok "ok"
 }
 
 _install_packages () {
+  
+    _info_installation "The following packages will be installed:\n"
 	for i in "${PACKAGES[@]}"; do
-		dpkg -s $1 > /dev/null 2>&1 || PACKAGES_TO_BE_INSTALLED+=("$i")
-	done
+		dpkg -s $i &>> $_LOG_FILE 
+    if [[  $? -eq "1" ]]; then
+      echo -e "\t\t\t$i"
+      PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
+    fi
+	done 
+  
+  if [[  ${#PACKAGES_TO_BE_INSTALLED[@]} -eq 0 ]]; then
+    echo -e "\t\t\tNo packages"
+    return 0
+  else 
+    _continue "\t\t"
+  fi
 
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
 		_info_installation $i
-    _continue
-    sudo apt-get install -y $i 1> /dev/null 2> .setup.log || _log_tail_exit
+    sudo apt-get install -y $i &>> $_LOG_FILE || _log_tail_exit
+    _info_ok "ok"
   done
 }
 
@@ -34,6 +48,6 @@ _get_docker () {
     _continue
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg &&
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io  1> /dev/null 2> .setup.log || _log_tail_exit
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io  &>> $_LOG_FILE || _log_tail_exit
   fi
 }

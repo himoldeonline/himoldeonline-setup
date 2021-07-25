@@ -14,14 +14,15 @@ source ./setup/lib/log.sh
 ### Start ##################
 clear
 _log_init 'setup.log'
-_banner 'Setup Script for HiMolde-Online Developement Environment'
-exit
+_banner '################## Setup Script for HiMolde-Online Developement Environment ##################'
+
 _header 'Validating Environment'
 source ./setup/1_environment.sh
 
 _header 'Installing Packages'
 source ./setup/2_installation.sh
 
+exit
 _header 'Setting up Git Authentication'
 source ./setup/3_github.sh
 

@@ -15,13 +15,13 @@ _has_profiles () {
   # sets path for shell profile in $SH_PROFILE
   # returns:
   # ..1 = no shell profile found
-  if [[ -f ~/.bashrc ]]; then
-    return 0
-  elif [[ -f ~/.zshrc ]]; then
-    return 0
-  else
-    return 1
-  fi
+
+
+echo $SHELL | grep -w -q "zsh" && SHELL_TYPE="zsh" && return 0
+echo $SHELL | grep -w -q "bash" && SHELL_TYPE="bash" && return 0
+
+return 1
+
 }
 
 _running_wsl () {
