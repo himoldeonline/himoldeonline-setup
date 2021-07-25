@@ -16,6 +16,11 @@ clear
 _log_init 'setup.log'
 _banner '################## Setup Script for HiMolde-Online Developement Environment ##################'
 
+_header 'Validating sudo access'
+sudo -v
+
+
+
 _header 'Validating Environment'
 source ./setup/1_environment.sh
 

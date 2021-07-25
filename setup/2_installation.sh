@@ -31,8 +31,8 @@ _get_pyenv () {
     _append_to_profile 'eval "$(pyenv init -)"'
     _append_to_profile 'eval "$(pyenv virtualenv-init -)"'
 
-    pyenv install -v $PYTHON_VERSION > /dev/null
-    pyenv global $PYTHON_VERSION > /dev/null
+    pyenv install -v $PYTHON_VERSION &>> $_LOG_FILE
+    pyenv global $PYTHON_VERSION &>> $_LOG_FILE
   fi
 }
 _get_pyenv
