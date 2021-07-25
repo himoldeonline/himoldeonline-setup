@@ -3,19 +3,19 @@
 # What will be installed:
 # ..System packages, Tutor, Docker, Docker-compose, Open edX docker images, Git, SSH-Key and more..
 
-source ./lib/display.sh
-source ./lib/validate.sh
-source ./lib/system.sh
-source ./lib/paths.sh
-source ./lib/repositories.sh
-source ./lib/log.sh
+source ./setup/lib/display.sh
+source ./setup/lib/validate.sh
+source ./setup/lib/system.sh
+source ./setup/lib/paths.sh
+source ./setup/lib/repositories.sh
+source ./setup/lib/log.sh
 
 
 ### Start ##################
 clear
 _log_init 'setup.log'
 _banner 'Setup Script for HiMolde-Online Developement Environment'
-
+exit
 _header 'Validating Environment'
 source ./setup/1_environment.sh
 

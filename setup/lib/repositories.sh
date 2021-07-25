@@ -1,8 +1,5 @@
 # URLS, BRANCH and TAGS for our repositories
 
-# himoldeonline-setup
-GIT_URL_HIMOLDEONLINE_SETUP='git@github.com:himoldeonline/himoldeonline-setup.git'
-
 # Open edX source-code
 GIT_URL_EDX_PLATFORM='git@github.com:himoldeonline/edx-platform.git'
 TAG_EDX_PLATFORM='tags/open-release/lilac.1'
