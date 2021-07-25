@@ -1,4 +1,5 @@
-## NOTE: This repository is not ready yet and do not run any scripts unless you know what you are doing!
+## NOTE: This repository is not ready yet
+* Do not run any scripts unless you know what you are doing!
 ## Scripts and Tools for getting started with developing for himoldeonline
 
 ### How to use
