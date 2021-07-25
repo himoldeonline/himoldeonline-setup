@@ -6,7 +6,7 @@
 ```bash
 cd ~/ && \
   git clone https://github.com/himoldeonline/himoldeonline-setup.git && \
-  cd ~/himoldeonline-setup/setup && \
+  cd ~/himoldeonline-setup && \
   ./start.sh && \
   cd ~/ && \
   rm -rf ~/himoldeonline-setup
