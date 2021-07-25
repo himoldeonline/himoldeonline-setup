@@ -26,7 +26,11 @@ _install_packages () {
     return 0
   fi
 
-  _continue "\t\t"
+  _info_installation "The following packages will be installed:\n"
+  for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
+  do
+    echo -e "\t\t\t$i"
+  done
 
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
