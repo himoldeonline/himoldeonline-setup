@@ -15,14 +15,15 @@ fi
 
 
 # OS-independent installations
+
 _get_pyenv () {
   PYTHON_VERSION="3.9.6"
   if ! _has_command pyenv; then
     # install pyenv
     
     _info_installation "Installing pyenv and python $PYTHON_VERSION"
-    curl -s https://pyenv.run  | bash 2>&1 /dev/null
-
+   # curl -s https://pyenv.run   | bash  &>> $_LOG_FILE || _log_tail_exit
+    eval "curl https://pyenv.run/ | bash" &>> $_LOG_FILE || _log_tail_exit
     # after install, if not call-able from $PATH
     if ! _has_command pyenv; then
       _append_to_profile 'export PATH="$HOME/.pyenv/bin:$PATH"'
@@ -31,8 +32,10 @@ _get_pyenv () {
     _append_to_profile 'eval "$(pyenv init -)"'
     _append_to_profile 'eval "$(pyenv virtualenv-init -)"'
 
-    pyenv install -v $PYTHON_VERSION &>> $_LOG_FILE
-    pyenv global $PYTHON_VERSION &>> $_LOG_FILE
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    pyenv install -v $PYTHON_VERSION &>> $_LOG_FILE || _log_tail_exit
+    pyenv global $PYTHON_VERSION &>> $_LOG_FILE || _log_tail_exit
   fi
 }
 _get_pyenv

@@ -25,7 +25,7 @@ _info_validation  "Script is not run as root"
     _info_ok
   done
 
-_info_validation "Check if .bashrc and/or .zshrc"
+_info_validation "Check default shell"
 _has_profiles && _info_ok $SHELL_TYPE || _abort 'Could not find any shell profile'
 
 _info_validation  "Checking if running inside Windows Subsystem for Linux"

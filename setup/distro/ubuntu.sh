@@ -20,7 +20,7 @@ _install_packages () {
   
     _info_installation "The following packages will be installed:\n"
 	for i in "${PACKAGES[@]}"; do
-		dpkg -s $i &>> $_LOG_FILE 
+		dpkg -s $i &>>  $_LOG_FILE || _log_tail_exit
     if [[  $? -eq "1" ]]; then
       echo -e "\t\t\t$i"
       PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
