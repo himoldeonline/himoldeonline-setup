@@ -1,46 +1,43 @@
 #!/usr/bin/env bash
 
+# What will be installed:
+# ..System packages, Tutor, Docker, Docker-compose, Open edX docker images, Git, SSH-Key and more..
+
 source ./setup/lib/display.sh
 source ./setup/lib/validate.sh
 source ./setup/lib/system.sh
 source ./setup/lib/paths.sh
 source ./setup/lib/repositories.sh
 source ./setup/lib/log.sh
+
+
+### Start ##################
+clear
 _log_init 'setup.log'
+_banner '################## Setup Script for HiMolde-Online Developement Environment ##################'
+
+_header 'Validating sudo access'
+sudo -v
 
 
-if [[ $DISTRO == *Fedora* ]]; then source ./setup/distro/fedora.sh
-elif [[ $DISTRO == *Debian* ]]; then source ./setup/distro/debian.sh
-elif [[ $DISTRO == *Ubuntu* ]]; then source ./setup/distro/ubuntu.sh
-fi
 
-# OS-dependent installations sourced by getting correct path: /setup/lib/dist_<distro>.sh
-_update
-_install_packages
+_header 'Validating Environment'
+source ./setup/1_environment.sh
+
+_header 'Installing Packages'
+source ./setup/2_installation.sh
+exit
+_header 'Setting up Git Authentication'
+source ./setup/3_github.sh
+
+_header 'Cloning Repositories'
+source ./setup/4_clone.sh
+
+_header 'Installing Open edX'
+source ./setup/5_tutor.sh
 
 
-_get_pyenv () {
-  PYTHON_VERSION="3.9.6"
-  if ! _has_command pyenv; then
-    # install pyenv
-    
-    _info_installation "Installing pyenv and python $PYTHON_VERSION"
-    curl -s https://pyenv.run   | bash 
+# if script makes it to this point indicationg everything went through
+_log_remove
 
-    echo "Yooooooo1"
-    # after install, if not call-able from $PATH
-    if ! _has_command pyenv; then
-    echo "Yooooooo"
-      _append_to_profile 'export PATH="$HOME/.pyenv/bin:$PATH"'
-      export PATH="$HOME/.pyenv/bin:$PATH"
-    fi
-    _append_to_profile 'eval "$(pyenv init -)"'
-    _append_to_profile 'eval "$(pyenv virtualenv-init -)"'
-
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-    pyenv install -v $PYTHON_VERSION 
-    pyenv global $PYTHON_VERSION 
-  fi
-}
-_get_pyenv
+_header 'Done!'
