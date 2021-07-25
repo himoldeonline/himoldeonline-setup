@@ -13,7 +13,7 @@ PACKAGES=(
 _update () {
 	_info_installation "Updating System"
   sudo apt-get update &>> $_LOG_FILE && sudo apt-get upgrade -y  &>> $_LOG_FILE
-    _info_ok "ok"
+  _info_ok "ok"
 }
 
 _install_packages () {

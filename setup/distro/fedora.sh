@@ -7,8 +7,9 @@ PACKAGES=(
 )
 
 _update () {
-	_sub_info  "Updating System"
+	_info_installation "Updating System"
   sudo dnf update -y
+  _info_ok "ok"
 }
 
 _install_packages () {
