@@ -11,13 +11,13 @@ PACKAGES=(
 
 
 _update () {
-	_info_installation  "Updating System"
+	_info_installation "Updating System"
   sudo apt-get update &>> $_LOG_FILE && sudo apt-get upgrade -y  &>> $_LOG_FILE
     _info_ok "ok"
 }
 
 _install_packages () {
-  
+
     _info_installation "The following packages will be installed:\n"
 	for i in "${PACKAGES[@]}"; do
 		dpkg -s $i &>>  $_LOG_FILE || _log_tail_exit
@@ -25,12 +25,12 @@ _install_packages () {
       echo -e "\t\t\t$i"
       PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
     fi
-	done 
-  
+	done
+
   if [[  ${#PACKAGES_TO_BE_INSTALLED[@]} -eq 0 ]]; then
     echo -e "\t\t\tNo packages"
     return 0
-  else 
+  else
     _continue "\t\t"
   fi
 
