@@ -8,7 +8,7 @@ PACKAGES=(
 
 _update () {
 	_info_installation "Updating System"
-  sudo dnf update -y
+  sudo dnf update -y &>> $_LOG_FILE
   _info_ok "ok"
 }
 
@@ -17,10 +17,7 @@ _install_packages () {
   dnf list installed > _tmp
 
   for i in "${PACKAGES[@]}"; do
-    while read -r _installed; do
-       echo $_installed | grep -w -q $i || PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
-    done < _tmp
-
+    cat _tmp | grep -w -q $i || PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
   done
   rm _tmp
 
