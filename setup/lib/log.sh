@@ -45,7 +45,7 @@ _log_error () {
 
 _log_tail_exit () {
   _style_out "Reading Log: $_LOG_FILE \n\nSTART\n`\
-  tail -20 $_LOG_FILE`\nEND\n\n" && exit
+  tail -50 $_LOG_FILE`\nEND\n\n" && exit
 }
 
 _log_remove () {
