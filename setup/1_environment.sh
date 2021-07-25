@@ -1,6 +1,5 @@
 # validating environment
-_log_error "Could not delete $repo"
-exit
+
 _info_validation  "Distro is either Debian, Fedora or Ubuntu"
   _distro_supported && _info_ok || _abort "You are not running a supported distribution of Linux"
 
