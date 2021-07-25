@@ -24,7 +24,7 @@ _install_packages () {
   do
   	_info_installation $i
     # _continue
-    sudo dnf install -y $i 1> /dev/null 2> .setup.log ||_log_tail_exit
+    sudo dnf install -y $i > .setup.log ||_log_tail_exit
   done
 }
 
