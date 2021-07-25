@@ -37,6 +37,7 @@ _install_packages () {
   do
   	_info_installation $i
     sudo dnf install -y $i &>> $_LOG_FILE || _log_tail_exit
+    _info_ok "ok"
   done
 }
 
