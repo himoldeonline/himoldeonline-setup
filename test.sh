@@ -8,6 +8,17 @@ source ./setup/lib/repositories.sh
 source ./setup/lib/log.sh
 _log_init 'setup.log'
 
+
+if [[ $DISTRO == *Fedora* ]]; then source ./setup/distro/fedora.sh
+elif [[ $DISTRO == *Debian* ]]; then source ./setup/distro/debian.sh
+elif [[ $DISTRO == *Ubuntu* ]]; then source ./setup/distro/ubuntu.sh
+fi
+
+# OS-dependent installations sourced by getting correct path: /setup/lib/dist_<distro>.sh
+_update
+_install_packages
+
+
 _get_pyenv () {
   PYTHON_VERSION="3.9.6"
   if ! _has_command pyenv; then
