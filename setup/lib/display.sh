@@ -9,7 +9,7 @@ _abort () {
   _set_color 31m
   BOX="${HUE_START}[exit]${HUE_END}"
   echo -e "${BOX}\t$1"
-  exit
+  exit 1
 }
 
 _sub_info () {

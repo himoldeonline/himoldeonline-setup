@@ -16,10 +16,16 @@ _info_validation  "Script is not run as root"
     _info_validation  "\e[0;91m$DEV_ROOT/\e[0m does not exist or is empty"
     if _dir_exist $repo; then
       if ! _dir_empty $repo; then
+<<<<<<< HEAD
         _sub_info "Directory is not empty and will be removed" && \
         _continue && \
         _sub_info "Removing $repo" \
          && rm -rf $repo  || _log_error "Could not delete $repo"
+=======
+        _sub_info "Directory is not empty and will be removed" &&
+        _continue &&  _sub_info "Removing $repo"
+         rm -rf $repo  || _log_error "Could not delete $repo"
+>>>>>>> 9984bbad19ee466a614ef872d1fe13fe24a7ed36
       fi
     fi
     _info_ok

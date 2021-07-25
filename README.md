@@ -1,3 +1,4 @@
+## NOTE: This repository is not ready yet and do not run any scripts unless you know what you are doing!
 ## Scripts and Tools for getting started with developing for himoldeonline
 
 ### How to use
@@ -6,7 +7,7 @@
 ```bash
 cd ~/ && \
   git clone https://github.com/himoldeonline/himoldeonline-setup.git && \
-  cd ~/himoldeonline-setup/setup && \
+  cd ~/himoldeonline-setup && \
   ./start.sh && \
   cd ~/ && \
   rm -rf ~/himoldeonline-setup

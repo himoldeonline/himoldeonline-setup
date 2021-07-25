@@ -14,7 +14,11 @@ source ./setup/lib/log.sh
 ### Start ##################
 clear
 _log_init 'setup.log'
+<<<<<<< HEAD
 _banner '################## Setup Script for HiMolde-Online Developement Environment ##################'
+=======
+_banner 'Setup Script for HiMolde-Online Developement Environment'
+>>>>>>> 9984bbad19ee466a614ef872d1fe13fe24a7ed36
 
 _header 'Validating Environment'
 source ./setup/1_environment.sh
