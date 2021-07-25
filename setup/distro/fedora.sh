@@ -45,8 +45,8 @@ _get_docker () {
   if ! _has_command docker; then
     _info_installation 'Docker'
     _continue
-    sudo dnf install dnf-plugins-core  -y  || exit
-    sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo  || exit
-    sudo dnf install -y docker-ce docker-ce-cli containerd.io || exit
+    sudo dnf install dnf-plugins-core  -y &>> $_LOG_FILE || _log_tail_exit
+    sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo &>> $_LOG_FILE || _log_tail_exit
+    sudo dnf install -y docker-ce docker-ce-cli containerd.io &>> $_LOG_FILE || _log_tail_exit
   fi
 }
