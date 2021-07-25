@@ -3,7 +3,7 @@
 PACKAGES=(
   nano git rsync openssh-clients curl gnupg2 python3-devel libxml2-devel libxslt-devel
   zlib-devel libjpeg-turbo-devel libyaml-devel zlib-devel bzip2 bzip2-devel readline-devel sqlite
-  sqlite-devel openssl-devel xz xz-devel libffi-devel
+  sqlite-devel openssl-devel xz xz-devel libffi-devel build-essential
 )
 
 _update () {
