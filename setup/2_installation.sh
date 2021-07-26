@@ -28,7 +28,7 @@ if ! _running_wsl; then
   if ! _in_group docker; then
     _add_user_to_group $USER docker &>> $_LOG_FILE || _log_tail_exit
   fi
-
+  _info_ok 'ok'
 fi
 
 
