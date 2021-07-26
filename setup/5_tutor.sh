@@ -9,7 +9,7 @@ if ! _is_command tutor; then
     _log_tail_exit
   fi
   _info_installation "Tutor"
-  eval 'pip3 install -e $TUTOR_ROOT' &>> $_LOG_FILE || _log_tail_exit
+  eval 'pip3 install -e $TUTOR_ROOT' &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 fi
 
 _tutor_from_scratch_build_dev () {
@@ -18,26 +18,47 @@ _tutor_from_scratch_build_dev () {
   # ..tutor local quickstart
   # ..tutor local stop
   # ..tutor images build openedx-dev
-  tutor config save 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  _info_installation "Getting Tutor Configurations"
+  tutor config save &>> $_LOG_FILE && _info_ok 'ok'  || _log_tail_exit
   sleep 2
-  tutor local dc pull 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+
+  _info_installation "Pulling Open edX Docker Image"
+  tutor local dc pull &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
-  tutor local start --detach 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+
+  _info_installation "Starting up container (running a fresh copy of Open edX) from pulled Image"
+  tutor local start --detach &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
-  tutor local init 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+
+  _info_installation "Initiate Open edX: Databases, Migrations and Applications"
+  tutor local init &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
-  tutor images build openedx 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+
+
+# might not need these 2 steps.......
+  _info_installation "Build new Open edX Image from current running Contianer"
+  tutor images build openedx &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
-  tutor local stop 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+
+  _info_installation "Stopping Container"
+  tutor local stop &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
-  tutor images build openedx-dev 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+# ''''''''''''''''''''''''''''''''''''
+
+
+  _info_installation "Build new Developement Image with extra assets"
+  tutor images build openedx-dev &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
-  tutor dev start --detach 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+
+  _info_installation "Start the Open edX Developement Environment"
+  tutor dev start --detach &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
-  tutor dev run lms pip install --requirement requirements/edx/development.txt 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+
+  _info_installation "Start up Open edX and install the extra assets"
+  tutor dev run lms pip install --requirement requirements/edx/development.txt &>> $_LOG_FILE && || _log_tail_exit
   sleep 2
-  tutor dev run lms npm install 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  tutor dev run lms npm install &>> $_LOG_FILE || _log_tail_exit
   sleep 2
-  tutor dev run lms openedx-assets build --env=dev 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
+  tutor dev run lms openedx-assets build --env=dev &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 }
 _tutor_from_scratch_build_dev
