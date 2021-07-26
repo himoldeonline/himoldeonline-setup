@@ -27,13 +27,13 @@ _update () {
 }
 
 _install_packages () {
-	if [[ $1 == 'base']]; then
+	if [[ $1 == 'base' ]]; then
     PACKAGES=$BASE_DEPENDENCIES
-  if [[ $1 == 'tutor']]; then
+  if [[ $1 == 'tutor' ]]; then
     PACKAGES=$TUTOR_DEPENDENCIES
-  elif [[ $1 == 'pyenv']]; then
+  elif [[ $1 == 'pyenv' ]]; then
     PACKAGES=$PYENV_DEPENDENCIES
-  elif [[ $1 == 'xblock_sdk']]; then
+  elif [[ $1 == 'xblock_sdk' ]]; then
     PACKAGES=$XBLOCK_SDK_DEPENDENCIES
   fi
     _info_installation "The following packages will be installed:\n"
