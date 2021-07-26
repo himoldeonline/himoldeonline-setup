@@ -55,7 +55,7 @@ _tutor_from_scratch_build_dev () {
   sleep 2
 
   _info_installation "Start up Open edX and install the extra assets"
-  tutor dev run lms pip install --requirement requirements/edx/development.txt &>> $_LOG_FILE && || _log_tail_exit
+  tutor dev run lms pip install --requirement requirements/edx/development.txt &>> $_LOG_FILE || _log_tail_exit
   sleep 2
   tutor dev run lms npm install &>> $_LOG_FILE || _log_tail_exit
   sleep 2
