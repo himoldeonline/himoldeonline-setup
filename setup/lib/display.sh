@@ -49,6 +49,12 @@ _info_cloning () {
   echo -e "\t${BOX}\t$1"
 }
 
+_info_checkout () {
+  _set_color 96m
+  BOX="${HUE_START}[Checkout]${HUE_END}"
+  echo -e "\t${BOX}\t$1"
+}
+
 _header () {
   # 1st arg: title message (inside double qoutes)
   echo -e "\033[0;93m\n### $1 ###\n\033[0m"
