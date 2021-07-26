@@ -5,7 +5,7 @@ if _file_exist $SSH_KEY; then
   _info_ok
 else
   _sub_info "Generating SSH-Key"
-  _add_ssh_key $SSH_KEY && _print_ssh_pub || exit
+  _add_ssh_key $SSH_KEY && _print_ssh_pub || exit 1
   ssh-add $SSH_KEY
   _sub_info  \
     'Go to https://github.com/settings/ssh/new and add the above key then press enter to continue'
