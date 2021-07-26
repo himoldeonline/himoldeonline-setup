@@ -29,7 +29,7 @@ _header 'Setting up Git Authentication'
 source ./setup/3_github.sh || _log_tail_exit
 
 # _header 'Cloning Repositories'
-# source ./setup/4_clone.sh
+source ./setup/4_clone.sh || _log_tail_exit
 
 _header 'Installing Open edX'
 source ./setup/5_tutor.sh || _log_tail_exit
