@@ -1,7 +1,7 @@
 # Fedora specific functions and variables
 
 BASE_DEPENDENCIES=(
-  nano git rsync openssh-clients curl gnupg2 gcc gcc-c++ python3-pip
+  nano git rsync openssh-clients curl gnupg2 gcc gcc-c++ python3 python3-pip
 )
 
 PYENV_DEPENDENCIES=(
