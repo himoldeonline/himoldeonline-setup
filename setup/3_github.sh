@@ -12,6 +12,7 @@ else
 fi
 
 _info_validation 'SSH-Authentication against Github'
+_sub_info "Connecting to Github"
 if _ssh_github_validate; then
   _info_ok "ok"
 else
