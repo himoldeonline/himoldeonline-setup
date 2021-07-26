@@ -28,8 +28,8 @@ source ./setup/2_installation.sh
 _header 'Setting up Git Authentication'
 source ./setup/3_github.sh
 
-_header 'Cloning Repositories'
-source ./setup/4_clone.sh
+# _header 'Cloning Repositories'
+# source ./setup/4_clone.sh
 
 _header 'Installing Open edX'
 source ./setup/5_tutor.sh
