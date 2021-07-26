@@ -4,7 +4,7 @@ _log_msg 'Cloning Repositories'
 
 _info_cloning "$GIT_URL_EDX_PLATFORM -> \e[0;91m$EDX_PLATFORM_ROOT/\e[0m"
 ssh-agent sh -c "ssh-add $SSH_KEY; git clone $GIT_URL_EDX_PLATFORM $EDX_PLATFORM_ROOT" &>> $_LOG_FILE && _info_ok || _log_tail_exit
-cd $EDX_PLATFORM_ROOT git fetch --all --tags  &>> $_LOG_FILE && _info_ok || _log_tail_exit
+cd $EDX_PLATFORM_ROOT && git fetch --all --tags  &>> $_LOG_FILE && _info_ok || _log_tail_exit
 cd $EDX_PLATFORM_ROOT && git checkout $TAG_EDX_PLATFORM  &>> $_LOG_FILE && _info_ok || _log_tail_exit
 
 _info_cloning "$GIT_URL_OPENEDX_INSTRUCTIONS -> \e[0;91m$INSTRUCTION_ROOT/\e[0m"
