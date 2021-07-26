@@ -1,9 +1,22 @@
 # Fedora specific functions and variables
 
-PACKAGES=(
-  nano git rsync openssh-clients curl gnupg2 python3-devel libxml2-devel libxslt-devel
-  zlib-devel libjpeg-turbo-devel libyaml-devel zlib-devel bzip2 bzip2-devel readline-devel sqlite
-  sqlite-devel openssl-devel xz xz-devel libffi-devel gcc gcc-c++
+BASE_DEPENDENCIES=(
+  nano git rsync openssh-clients curl gnupg2
+)
+
+PYENV_DEPENDENCIES=(
+  zlib-devel bzip2 bzip2-devel readline-devel sqlite
+  sqlite-devel openssl-devel xz xz-devel libffi-devel
+  gcc gcc-c++
+)
+
+XBLOCK_SDK_DEPENDENCIES=(
+  python-devel libxml2-devel libxslt-devel
+  zlib-devel libjpeg-turbo-devel
+)
+
+TUTOR_DEPENDENCIES=(
+  libyaml-devel
 )
 
 _update () {
@@ -13,7 +26,15 @@ _update () {
 }
 
 _install_packages () {
-
+  if [[ $1 == 'base']]; then
+    PACKAGES=$BASE_DEPENDENCIES
+  if [[ $1 == 'tutor']]; then
+    PACKAGES=$TUTOR_DEPENDENCIES
+  elif [[ $1 == 'pyenv']]; then
+    PACKAGES=$PYENV_DEPENDENCIES
+  elif [[ $1 == 'xblock_sdk']]; then
+    PACKAGES=$XBLOCK_SDK_DEPENDENCIES
+  fi
   dnf list installed > _tmp
 
   for i in "${PACKAGES[@]}"; do
@@ -42,11 +63,10 @@ _install_packages () {
 }
 
 _get_docker () {
-  if ! _has_command docker; then
-    _info_installation 'Docker'
-    _continue
-    sudo dnf install dnf-plugins-core  -y &>> $_LOG_FILE || _log_tail_exit
-    sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo &>> $_LOG_FILE || _log_tail_exit
-    sudo dnf install -y docker-ce docker-ce-cli containerd.io &>> $_LOG_FILE || _log_tail_exit
-  fi
+  if _has_command docker; then return 0; fi
+  _info_installation 'Docker'
+  _continue
+  sudo dnf install dnf-plugins-core  -y &>> $_LOG_FILE || _log_tail_exit
+  sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo &>> $_LOG_FILE || _log_tail_exit
+  sudo dnf install -y docker-ce docker-ce-cli containerd.io &>> $_LOG_FILE || _log_tail_exit
 }
