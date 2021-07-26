@@ -1,13 +1,12 @@
 # Fedora specific functions and variables
 
 BASE_DEPENDENCIES=(
-  nano git rsync openssh-clients curl gnupg2
+  nano git rsync openssh-clients curl gnupg2 gcc gcc-c++
 )
 
 PYENV_DEPENDENCIES=(
   zlib-devel bzip2 bzip2-devel readline-devel sqlite
   sqlite-devel openssl-devel xz xz-devel libffi-devel
-  gcc gcc-c++
 )
 
 XBLOCK_SDK_DEPENDENCIES=(
