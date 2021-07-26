@@ -65,7 +65,7 @@ _get_pyenv () {
 _get_pyenv
 
 _get_docker_compose () {
-    # if docker-compose is isntalled, jump out of function
+    # if docker-compose is installed, jump out of function
   if _has_command docker-compose; then
      return 0
   fi
