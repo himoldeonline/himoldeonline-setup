@@ -23,7 +23,7 @@ _add_gitconfig () {
 
 _add_ssh_key () {
   # 1st arg: /path/to/key
-  ssh-keygen -t rsa -b 4096 -f $1
+  ssh-keygen -t rsa -b 4096 -f $1 -q -N ""
 }
 
 _add_path_profile () {
