@@ -15,7 +15,6 @@ if ! _running_wsl; then
   # install docker from sourced distro file
   _get_docker
 
-
   _info_validation  "Connection to Docker Daemon"
   # ..check if docker is running, enable and start docker if not
   _service_running docker &>> $_LOG_FILE ||
@@ -28,6 +27,7 @@ if ! _running_wsl; then
   if ! _in_group docker; then
     _add_user_to_group $USER docker &>> $_LOG_FILE || _log_tail_exit
   fi
+
   _info_ok 'ok'
 fi
 
