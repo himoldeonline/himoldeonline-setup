@@ -13,7 +13,7 @@ fi
 
 _info_validation 'SSH-Authentication against Github'
 if _ssh_github_validate; then
-  _info_ok "yes"
+  _info_ok "ok"
 else
   _info_error 'Authentication Failed'
   _print_ssh_pub
