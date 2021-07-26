@@ -8,7 +8,7 @@ if ! _is_command tutor; then
     _info_error 'Tutor needs Docker Compose to be installed'
     _log_tail_exit
   fi
-  _info_installation "Tutor"
+  _info_installation "Tutor\n"
   _install_packages 'tutor'
   eval 'pip3 install -e $TUTOR_ROOT' &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 fi
