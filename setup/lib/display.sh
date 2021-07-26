@@ -46,13 +46,13 @@ _info_installation () {
 _info_cloning () {
   _set_color 96m
   BOX="${HUE_START}[Cloning]${HUE_END}"
-  echo -e "\t${BOX}\t$1"
+  echo -e -n "\t${BOX}\t$1"
 }
 
 _info_checkout () {
   _set_color 96m
   BOX="${HUE_START}[Checkout]${HUE_END}"
-  echo -e "\t${BOX}\t$1"
+  echo -e -n "\t${BOX}\t$1"
 }
 
 _header () {
