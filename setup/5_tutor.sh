@@ -18,6 +18,7 @@ _tutor_from_scratch_build_dev () {
   # ..tutor local quickstart
   # ..tutor local stop
   # ..tutor images build openedx-dev
+  # what we end up with is both local and dev images that can be started with tutor local start and tutor dev start
   _info_installation "Getting Tutor Configurations"
   tutor config save &>> $_LOG_FILE && _info_ok 'ok'  || _log_tail_exit
   sleep 2
@@ -34,8 +35,6 @@ _tutor_from_scratch_build_dev () {
   tutor local init &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
 
-
-# might not need these 2 steps.......
   _info_installation "Build new Open edX Image from current running Contianer"
   tutor images build openedx &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
@@ -43,8 +42,6 @@ _tutor_from_scratch_build_dev () {
   _info_installation "Stopping Container"
   tutor local stop &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
-# ''''''''''''''''''''''''''''''''''''
-
 
   _info_installation "Build new Developement Image with extra assets"
   tutor images build openedx-dev &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
