@@ -9,7 +9,7 @@ fi
 _update
 _install_packages
 
-# users running WSL must install docker desktop inside the Windows host
+# note: users running WSL must install docker desktop inside the Windows host manually
 if ! _running_wsl; then
   _get_docker
 fi
@@ -17,8 +17,14 @@ fi
 
 # OS-independent installations
 _get_pyenv () {
-  PYTHON_VERSION="3.9.6"
+  # if pyenv is installed and python is installed, jump out of function
+  if _has_command pyenv; then
+      if _has_command python; then return 0; fi
+  fi
+
   if ! _has_command pyenv; then
+    PYTHON_VERSION="3.9.6"
+    _yes_or_no "Do you want to install Pyenv and Python $PYTHON_VERSION" || _info_ok "skipping" && return 0
     _info_installation "Installing pyenv and python $PYTHON_VERSION"
     eval "curl https://pyenv.run/ | bash" &>> $_LOG_FILE || _log_tail_exit
 
@@ -34,6 +40,21 @@ _get_pyenv () {
     eval "$(pyenv virtualenv-init -)"
     pyenv install -v $PYTHON_VERSION &>> $_LOG_FILE || _log_tail_exit
     pyenv global $PYTHON_VERSION &>> $_LOG_FILE || _log_tail_exit
+    _info_ok 'ok'
   fi
+
+
 }
 _get_pyenv
+
+_get_docker_compose () {
+    # if docker-compose is isntalled, jump out of function
+  if _has_command docker-compose; then
+     return 0
+  fi
+  _yes_or_no 'Do you want to install Docker Compose (For Tutor with Open edX)' || _info_ok "skipping" && return 0
+  _info_installation "Installing Docker Compose"
+  python3 -m pip install --upgrade pip &>> $_LOG_FILE || _log_tail_exit
+  pip3 install docker-compose &>> $_LOG_FILE || _log_tail_exit
+}
+_get_docker_compose
