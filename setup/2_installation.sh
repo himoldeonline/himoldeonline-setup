@@ -11,7 +11,24 @@ _install_packages
 
 # note: users running WSL must install docker desktop inside the Windows host manually
 if ! _running_wsl; then
+
+  # isntall docker from sourced distro file
   _get_docker
+
+
+  _info_validation  "Connection to Docker Daemon"
+  # ..check if docker is running, enable and start docker if not
+  _service_running docker &>> $_LOG_FILE ||
+    # enable docker daemon if previous failed
+    _add_service docker &>> $_LOG_FILE ||
+    # exit if enabling docker daemon failed
+    _log_tail_exit
+
+  # ..validate member of docker group
+  if ! _in_group docker; then
+    _add_user_to_group $USER docker &>> $_LOG_FILE || _log_tail_exit
+  fi
+
 fi
 
 
