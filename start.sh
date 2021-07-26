@@ -24,13 +24,13 @@ source ./setup/1_environment.sh
 
 _header 'Installing Packages'
 source ./setup/2_installation.sh
-
+exit
 _header 'Setting up Git Authentication'
 source ./setup/3_github.sh
 
 _header 'Cloning Repositories'
 source ./setup/4_clone.sh
-exit
+
 _header 'Installing Open edX'
 source ./setup/5_tutor.sh
 
