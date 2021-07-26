@@ -9,8 +9,7 @@ if ! _is_command tutor; then
     _log_tail_exit
   fi
   _info_installation "Tutor\n"
-  _install_packages 'tutor' &&
-    eval 'pip3 install -e $TUTOR_ROOT' &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  eval 'pip3 install -e $TUTOR_ROOT' &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 fi
 
 _tutor_from_scratch_build_dev () {

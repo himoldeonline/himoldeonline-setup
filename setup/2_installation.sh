@@ -8,6 +8,7 @@ fi
 # OS-dependent installations sourced by getting correct path in distro/<distro>.sh
 _update
 _install_packages 'base'
+_install_packages 'tutor'
 
 # note: users running WSL must install docker desktop inside the Windows host manually
 if ! _running_wsl; then
