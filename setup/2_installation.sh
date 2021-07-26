@@ -12,7 +12,7 @@ _install_packages
 # note: users running WSL must install docker desktop inside the Windows host manually
 if ! _running_wsl; then
 
-  # isntall docker from sourced distro file
+  # install docker from sourced distro file
   _get_docker
 
 
