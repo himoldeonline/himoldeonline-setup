@@ -24,7 +24,7 @@ _get_pyenv () {
 
   if ! _has_command pyenv; then
     PYTHON_VERSION="3.9.6"
-    _yes_or_no "Do you want to install Pyenv and Python $PYTHON_VERSION" || _info_ok "skipping" && return 0
+    _yes_or_no "Do you want to install Pyenv and Python $PYTHON_VERSION" || eval '_info_ok "skipping" && return 0'
     _info_installation "Installing pyenv and python $PYTHON_VERSION"
     eval "curl https://pyenv.run/ | bash" &>> $_LOG_FILE || _log_tail_exit
 
@@ -52,7 +52,6 @@ _get_docker_compose () {
   if _has_command docker-compose; then
      return 0
   fi
-  _yes_or_no 'Do you want to install Docker Compose required for Tutor (Running Open edX)' || eval '_info_ok "skipping" && return 0'
   _info_installation "Installing Docker Compose"
   python3 -m pip install --upgrade pip &>> $_LOG_FILE || _log_tail_exit
   pip3 install docker-compose &>> $_LOG_FILE || _log_tail_exit

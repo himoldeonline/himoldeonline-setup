@@ -4,6 +4,10 @@ _log_msg 'Installing Open edX with Tutor'
 
 
 if ! _is_command tutor; then
+  if ! _is_command docker-compose; then
+    _info_error 'Tutor needs Docker Compose to be installed'
+    _log_tail_exit
+  fi
   _info_installation "Tutor"
   pip3 install -e $TUTOR_ROOT || exit
 fi
