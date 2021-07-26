@@ -9,7 +9,7 @@ if ! _is_command tutor; then
     _log_tail_exit
   fi
   _info_installation "Tutor"
-  pip3 install -e $TUTOR_ROOT || exit
+  eval 'pip3 install -e $TUTOR_ROOT' &>> $_LOG_FILE || _log_tail_exit
 fi
 
 _tutor_from_scratch_build_dev () {
@@ -40,4 +40,4 @@ _tutor_from_scratch_build_dev () {
   sleep 2
   tutor dev run lms openedx-assets build --env=dev 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
 }
-# _tutor_from_scratch_build_dev
+_tutor_from_scratch_build_dev
