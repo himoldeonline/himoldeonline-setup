@@ -26,13 +26,13 @@ _update () {
 
 _install_packages () {
   if [[ $1 == 'base' ]]; then
-    PACKAGES=$BASE_DEPENDENCIES
+    PACKAGES=("${BASE_DEPENDENCIES[@]}")
   elif [[ $1 == 'tutor' ]]; then
-    PACKAGES=$TUTOR_DEPENDENCIES
+    PACKAGES=("${TUTOR_DEPENDENCIES[@]}")
   elif [[ $1 == 'pyenv' ]]; then
-    PACKAGES=$PYENV_DEPENDENCIES
+    PACKAGES=("${PYENV_DEPENDENCIES[@]}")
   elif [[ $1 == 'xblock_sdk' ]]; then
-    PACKAGES=$XBLOCK_SDK_DEPENDENCIES
+    PACKAGES=("${XBLOCK_SDK_DEPENDENCIES[@]}")
   fi
   dnf list installed > _tmp
 
