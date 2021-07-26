@@ -12,11 +12,11 @@ else
 fi
 
 _info_validation 'SSH-Authentication against Github'
-_sub_info "Connecting to Github"
 if _ssh_github_validate; then
-  _info_ok "ok"
+  _info_ok "granted"
 else
   _info_error 'Authentication Failed'
+  _sub_info 'Printing out public ssh-key'
   _print_ssh_pub
   _abort 'Make sure to add the above key to https://github.com/settings/ssh/new and re-run the script'
 fi
