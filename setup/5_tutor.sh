@@ -40,4 +40,4 @@ _tutor_from_scratch_build_dev () {
   sleep 2
   tutor dev run lms openedx-assets build --env=dev 1> /dev/null 2>> $_LOG_FILE && _info_ok || _log_tail_exit
 }
-_tutor_from_scratch_build_dev && _continue
+# _tutor_from_scratch_build_dev
