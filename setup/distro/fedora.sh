@@ -40,7 +40,7 @@ _install_packages () {
     cat _tmp | grep -w -q $i || PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
   done
   rm _tmp
-
+  unset PACKAGES
   if [[  ${#PACKAGES_TO_BE_INSTALLED[@]} -eq 0 ]]; then
     echo -e "\t\t\tNo packages"
     return 0

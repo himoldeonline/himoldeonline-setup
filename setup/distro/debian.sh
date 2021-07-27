@@ -44,7 +44,7 @@ _install_packages () {
       PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
     fi
 	done
-
+	unset PACKAGES
   if [[  ${#PACKAGES_TO_BE_INSTALLED[@]} -eq 0 ]]; then
     echo -e "\t\t\tNo packages"
     return 0
