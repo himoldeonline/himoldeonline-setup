@@ -37,22 +37,25 @@ _install_packages () {
     PACKAGES=("${XBLOCK_SDK_DEPENDENCIES[@]}")
   fi
 
-  _info_installation "The following $1 packages/dependencies will be installed:\n"
 	for i in "${PACKAGES[@]}"; do
 		dpkg -s $i &>>  $_LOG_FILE || _log_tail_exit
     if [[  $? -eq "1" ]]; then
-      echo -e "\t\t\t$i"
       PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
     fi
 	done
 	unset PACKAGES
+
   if [[  ${#PACKAGES_TO_BE_INSTALLED[@]} -eq 0 ]]; then
-    echo -e "\t\t\tNo packages"
+		_log_msg "All packages already installed for $1"
     return 0
-  else
-    _continue "\t\t"
   fi
 
+	_info_installation "The following $1 packages/dependencies will be installed:\n"
+  for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
+  do
+    echo -e "\t\t\t$i"
+  done
+  _continue "\t\t"
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
 		_info_installation $i

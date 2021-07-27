@@ -42,7 +42,7 @@ _install_packages () {
   rm _tmp
   unset PACKAGES
   if [[  ${#PACKAGES_TO_BE_INSTALLED[@]} -eq 0 ]]; then
-    echo -e "\t\t\tNo packages"
+    _log_msg "All packages already installed for $1"
     return 0
   fi
 
