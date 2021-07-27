@@ -1,88 +1,52 @@
 # fetch system settings and do validations
 
 _is_root () {
-  # returns:
-  # ..0 = is root
-  # ..1 = not root
   _UID=$(id -u)
   if [ $_UID -ne '0' ]; then
-     return 1
+     return 1 # not root
   fi
-  return 0
+  return 0 # is root
 }
 
 _has_profiles () {
-  # sets path for shell profile in $SH_PROFILE
-  # returns:
-  # ..1 = no shell profile found
-
-
-echo $SHELL | grep -w -q "zsh" && SHELL_TYPE="zsh" && return 0
-echo $SHELL | grep -w -q "bash" && SHELL_TYPE="bash" && return 0
-
-return 1
-
+  # also sets path for shell profile in $SH_PROFILE
+  echo $SHELL | grep -w -q "zsh" && SHELL_TYPE="zsh" && return 0
+  echo $SHELL | grep -w -q "bash" && SHELL_TYPE="bash" && return 0
+  return 1 # no shell profile found
 }
 
 _running_wsl () {
-  # returns:
-  # ..0 = running nside wsl
-  # ..1 = not running inside wsl
   uname -r | grep -q "WSL2"
   if [[ $? == '0' ]]; then
-    return 0
+    return 0 # Linux running nside wsl
   fi
-  return 1
+  return 1 # Linux not running inside wsl
 }
 
 _service_running () {
   # 1st arg: name-of-service
-  # returns:
-  # ..0 = running
-  # ..1 = not running
   _SERVICE=$1
   RET=$(pgrep -f $_SERVICE)
   if [[ $? == '1' ]]; then
-    return 1
+    return 1 # service not running
   fi
-  return 0
+  return 0 # service running
 }
 
 _user_exist () {
-  # returns:
-  # ..0 = exist
-  # ..1 = does not exist
   getent passwd $1 | grep -q $1
   if [[ $? -eq '1' ]]; then
-    return 1
+    return 1 # user does not exist
   fi
-  return 0
-}
-
-_home_exist () {
-  # returns:
-  # ..0 = home dir exist (and match home input if passed)
-  # ..1 = home dir does not exist
-  # ..2 = optional input home dir does not match home dir in passwd
-  # example usage: if _home_exist <uername>; then...
-  CMD=$(eval echo "~$1")
-  RET=$CMD
-  if [[ ! -d $RET ]]; then
-    return 1
-  fi
-
-  return 0
+  return 0 # user does exist
 }
 
 _file_exist () {
-  # returns:
-  # ..0 = file exist
-  # ..1 = file does not exist
   _FILE=$1
   if [[ -f $_FILE ]]; then
-      return 0
+      return 0 # file exist
   fi
-  return 1
+  return 1 # file does not exist
 }
 
 _dir_exist () {
@@ -106,14 +70,24 @@ _dir_empty () {
   return 2 # directory does not exist
 }
 
-_dir_can_clone () {
-  if [ -d $1 ]; then
-    if [ "$(ls -A $1)" ]; then
-       return 1 # dir not empty -> cant clone
-     fi
-     return 0 # dir empty -> can clone
+_is_cloned () {
+  if [[ ! -d $1 ]]; then
+    return 2 # dir does not exist
   fi
-  return 0 # dir does not exist -> can clone
+  if (ls -A $1 | grep -q -w ".git") ; then
+    return 0 # dir is git repository
+  fi
+  return 1 # dir is not a git repository
+}
+
+_dir_can_clone () {
+  if [[ ! -d $1 ]]; then
+    return 0 # dir not exist -> can clone
+  fi
+  if [[ "$(ls -A $1)" ]]; then
+   return 1 # dir not empty -> can not clone
+ fi
+ return 0  # dir empty -> can clone
 }
 
 # _is_nonempty () {
@@ -131,9 +105,7 @@ _dir_can_clone () {
 # }
 
 _ssh_github_validate () {
-  # returns:
-  # ..0 = authenticated
-  # ..1 = denied
+  # returns: 0 authenticated, 1 denied
   ssh -i $SSH_KEY -T git@github.com 2> /dev/null
   IS_AUTH=$? # 1 = authenticated, 255 = denied
   if [[ $IS_AUTH -eq '1' ]]
@@ -142,27 +114,20 @@ _ssh_github_validate () {
 }
 
 _check_path () {
-  # returns:
-  # ..0: in $PATH
-  # ..1: not in $PATH
+  # returns: 0 in $PATH, 1 not in $PATH
   echo $PATH | grep -q $1 || return 1
   return 0
 }
 
 _is_command () {
   # example usage: _is_command tutor && echo 'tutor exist'|| echo 'tutor does not exist'
-  # returns:
-  # ..0 = command exist
-  # ..1 = command does not exist
-  if [ -x "$(command -v $1)" ]; then return 0
-  else return 1; fi
+  # returns: 0 command exist, 1 command does not exist
+  if [ -x "$(command -v $1)" ]; then return 0; else return 1; fi
 }
 
 _in_group () {
   # 1st arg: groupname
-  # returns:
-  # ..0 = in group
-  # ..1 = not in group
+  # returns: 0 in group, 1 not in group
   getent group $1 | grep -q $USER && return 0 || return 1
 }
 

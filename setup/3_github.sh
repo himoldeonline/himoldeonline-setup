@@ -1,5 +1,6 @@
 # setup ssh-authentication @ github
 
+_log_msg 'Generating SSH-Key'
 _info_validation 'SSH-Key \e[0;91m~/.ssh/id_rsa_himoldeonline\e[0m exist'
 if _file_exist $SSH_KEY; then
   _info_ok "yes"
@@ -11,6 +12,7 @@ else
   read
 fi
 
+_log_msg 'Authentication against Github'
 _info_validation 'SSH-Authentication against Github'
 if _ssh_github_validate; then
   _info_ok "granted"

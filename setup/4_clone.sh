@@ -2,39 +2,48 @@
 
 _log_msg 'Cloning Repositories'
 
-_clone_edx_platform () {
-  _info_cloning "$GIT_URL_EDX_PLATFORM -> \e[0;91m$EDX_PLATFORM_ROOT/\e[0m"
-    ssh-agent sh -c "ssh-add $SSH_KEY; git clone $GIT_URL_EDX_PLATFORM $EDX_PLATFORM_ROOT" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
-    _info_cloning "Fething all tags"
-    cd $EDX_PLATFORM_ROOT && ssh-agent sh -c "ssh-add $SSH_KEY; git fetch --all --tags"  &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
-    _info_checkout "Checking out tag $TAG_EDX_PLATFORM"
-    cd $EDX_PLATFORM_ROOT && git checkout $TAG_EDX_PLATFORM  &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+_clone_git_repository () {
+  # 1st arg: URL
+  # 2nd arg: DIR
+  _info_cloning "$1 -> \e[0;91m$2/\e[0m"
+    ssh-agent sh -c "ssh-add $SSH_KEY; git clone $1 $2" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 }
 
-_clone_open_edx_instructions () {
-  _info_cloning "$GIT_URL_OPENEDX_INSTRUCTIONS -> \e[0;91m$INSTRUCTION_ROOT/\e[0m"
-    ssh-agent sh -c "ssh-add $SSH_KEY; git clone $GIT_URL_OPENEDX_INSTRUCTIONS $INSTRUCTION_ROOT" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+_checkout_tags () {
+  # 1st arg: DIR
+  # 2nd arg: TAG
+  _info_checkout "Fetching all tags in \e[0;91m$1/\e[0m and checking out $2"
+  cd $1 && ssh-agent sh -c "ssh-add $SSH_KEY; git fetch --all --tags"  &>> $_LOG_FILE || _log_tail_exit
+  cd $1 && git checkout $2  &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 }
 
-_clone_open_edx_dev () {
-  _info_cloning "$GIT_URL_OPENEDX_DEV -> \e[0;91m$OPENEDX_DEV_ROOT/\e[0m"
-    ssh-agent sh -c "ssh-add $SSH_KEY; git clone $GIT_URL_OPENEDX_DEV $OPENEDX_DEV_ROOT" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
-    _info_checkout "Checking out branch $BRANCH_OPENEDX_DEV"
-    cd $OPENEDX_DEV_ROOT && git checkout $BRANCH_OPENEDX_DEV &>> $_LOG_FILE  && _info_ok 'ok' || _log_tail_exit
+_checkout_branch () {
+  # 1st arg: DIR
+  # 2nd arg: BRANCH
+  _info_checkout "Checking out branch $2 in \e[0;91m$1/\e[0m"
+  cd $1 && git checkout $2 &>> $_LOG_FILE  && _info_ok 'ok' || _log_tail_exit
 }
 
-_clone_tibe_theme () {
-  _info_cloning "$GIT_URL_TIBETHEME -> \e[0;91m$TIBE_THEME_ROOT/\e[0m"
-    ssh-agent sh -c "ssh-add $SSH_KEY; git clone $GIT_URL_TIBETHEME $TIBE_THEME_ROOT" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+__start_git_clone () {
+  # 1st arg: CLONE DIRECTORY
+  # 2nd arg: GIT URL
+  if _dir_can_clone $1; then
+    _log_msg "Cloning $2" && _clone_git_repository $2 $1
+  elif _is_cloned $1; then
+    _log_msg "Skip cloning $2 because a git repository inside $1 exists"
+  elif ! _is_cloned $1; then
+    _log_msg "$2 can not be cloned because $1 is not empty"
+    _log_tail_exit
+  fi
 }
 
-_clone_tutor () {
-  _info_cloning "$GIT_URL_TUTOR -> \e[0;91m$TUTOR_ROOT/\e[0m"
-    ssh-agent sh -c "ssh-add $SSH_KEY; git clone $GIT_URL_TUTOR $TUTOR_ROOT" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
-}
+# clone repositories
+__start_git_clone $EDX_PLATFORM_ROOT $GIT_URL_EDX_PLATFORM
+__start_git_clone $INSTRUCTION_ROOT $GIT_URL_OPENEDX_INSTRUCTIONS
+__start_git_clone $OPENEDX_DEV_ROOT $GIT_URL_OPENEDX_DEV
+__start_git_clone $TIBE_THEME_ROOT $GIT_URL_TIBETHEME
+__start_git_clone $TUTOR_ROOT $GIT_URL_TUTOR
 
-_dir_can_clone $EDX_PLATFORM_ROOT && _clone_edx_platform
-_dir_can_clone $INSTRUCTION_ROOT && _clone_open_edx_instructions
-_dir_can_clone $OPENEDX_DEV_ROOT && _clone_open_edx_dev
-_dir_can_clone $TIBE_THEME_ROOT && _clone_tibe_theme
-_dir_can_clone $TIBE_THEME_ROOT && _clone_tutor
+# checkout branches and tags
+_checkout_tags $EDX_PLATFORM_ROOT $TAG_EDX_PLATFORM
+_checkout_branch $OPENEDX_DEV_ROOT $BRANCH_OPENEDX_DEV

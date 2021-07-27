@@ -11,9 +11,8 @@ _log_init () {
 _style_out () {
   HUE_START="\e[0;94m"
   HUE_END='\e[0m'
-  printf  "\n${HUE_START}\t\t$1${HUE_END}\n"
+  echo -e "${HUE_START}\t\t$1${HUE_END}"
 }
-
 
 _log_command () {
   # arg 1: command inside double qoutes -> example: "sudo apt update"
