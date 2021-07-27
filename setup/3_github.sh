@@ -18,5 +18,5 @@ else
   _info_error 'failed'
   _sub_info 'Printing out public ssh-key'
   _print_ssh_pub
-  _abort 'Make sure to add the above key to https://github.com/settings/ssh/new and re-run the script'
+  _abort 'Login to your github account and add the above key to https://github.com/settings/ssh/new and re-run the script'
 fi
