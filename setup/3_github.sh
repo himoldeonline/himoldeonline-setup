@@ -8,7 +8,7 @@ else
   _sub_info "Generating SSH-Key"
   _add_ssh_key $SSH_KEY && _print_ssh_pub || exit 1
   _service_running ssh-agent && ssh-add $SSH_KEY &>> $_LOG_FILE
-  _sub_info 'Go to https://github.com/settings/ssh/new and add the above key then press enter to continue'
+  _sub_info 'Login to your github account and go to https://github.com/settings/ssh/new and add the above key then press enter to continue'
   read
 fi
 
