@@ -40,6 +40,7 @@ __start_git_clone () {
 }
 
 # clone repositories
+_START_DIRECTORY=$(pwd) # preserve the original woring directory before cd`ing into directories which will be part of this script
 __start_git_clone $EDX_PLATFORM_ROOT $GIT_URL_EDX_PLATFORM
 __start_git_clone $INSTRUCTION_ROOT $GIT_URL_OPENEDX_INSTRUCTIONS
 __start_git_clone $OPENEDX_DEV_ROOT $GIT_URL_OPENEDX_DEV
@@ -49,5 +50,7 @@ __start_git_clone $TUTOR_ROOT $GIT_URL_TUTOR
 # checkout branches and tags
 _checkout_tags $EDX_PLATFORM_ROOT $TAG_EDX_PLATFORM
 _checkout_branch $OPENEDX_DEV_ROOT $BRANCH_OPENEDX_DEV
+
+cd $_START_DIRECTORY # go back to original directory
 
 _log_msg 'END 4_clone.sh'
