@@ -1,5 +1,7 @@
 # install base dependencies and apps (you can find what packages in ./setup/distro/<distroname> )
 
+_log_msg 'START 2_installation.sh'
+
 if [[ $DISTRO == *Fedora* ]]; then source ./setup/distro/fedora.sh
 elif [[ $DISTRO == *Debian* ]]; then source ./setup/distro/debian.sh
 elif [[ $DISTRO == *Ubuntu* ]]; then source ./setup/distro/ubuntu.sh
@@ -96,3 +98,6 @@ _get_xblock_sdk () {
   _info_installation "Installing XBlock SDK"
   _install_packages 'xblock_sdk'
 }
+
+
+_log_msg 'END 2_installation.sh'

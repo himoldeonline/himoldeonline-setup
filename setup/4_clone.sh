@@ -1,5 +1,7 @@
 # clone all himoldeonline repositories
 
+_log_msg 'START 4_clone.sh'
+
 _log_msg 'Cloning Repositories'
 
 _clone_git_repository () {
@@ -47,3 +49,5 @@ __start_git_clone $TUTOR_ROOT $GIT_URL_TUTOR
 # checkout branches and tags
 _checkout_tags $EDX_PLATFORM_ROOT $TAG_EDX_PLATFORM
 _checkout_branch $OPENEDX_DEV_ROOT $BRANCH_OPENEDX_DEV
+
+_log_msg 'END 4_clone.sh'

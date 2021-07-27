@@ -1,6 +1,8 @@
 # validating environment
 
-_log_msg 'Validation Start'
+_log_msg 'START 1_environment.sh'
+
+
 DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
 
 _info_validation  "Distro is either Debian, Fedora or Ubuntu"
@@ -43,4 +45,5 @@ if _running_wsl; then
  else
    _info_ok "no"
 fi
-_log_msg 'Validation End'
+
+_log_msg 'END 1_environment.sh'

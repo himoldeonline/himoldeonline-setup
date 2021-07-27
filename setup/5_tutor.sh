@@ -1,5 +1,8 @@
 # For when running multiple tutor commands
 
+_log_msg 'START 5_tutor.sh'
+
+
 _log_msg 'Installing Open edX with Tutor'
 
 
@@ -59,3 +62,6 @@ _tutor_from_scratch_build_dev () {
   tutor dev run lms openedx-assets build --env=dev &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 }
 _tutor_from_scratch_build_dev
+
+
+_log_msg 'END 5_tutor.sh'

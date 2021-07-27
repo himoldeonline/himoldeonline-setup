@@ -1,5 +1,7 @@
 # setup ssh-authentication @ github
 
+_log_msg 'START 3_github.sh'
+
 _log_msg 'Generating SSH-Key'
 _info_validation 'SSH-Key \e[0;91m~/.ssh/id_rsa_himoldeonline\e[0m exist'
 if _file_exist $SSH_KEY; then
@@ -22,3 +24,5 @@ else
   _print_ssh_pub
   _abort 'Login to your github account and add the above key to https://github.com/settings/ssh/new and re-run the script'
 fi
+
+_log_msg 'END 3_github.sh'
