@@ -58,6 +58,7 @@ _install_packages () {
     sudo apt-get install -y $i &>> $_LOG_FILE || _log_tail_exit
     _info_ok "ok"
   done
+	unset PACKAGES_TO_BE_INSTALLED
 }
 
 _get_docker () {
