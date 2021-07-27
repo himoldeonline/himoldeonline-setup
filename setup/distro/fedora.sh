@@ -46,7 +46,7 @@ _install_packages () {
     return 0
   fi
 
-  _info_installation "The following packages will be installed:\n"
+  _info_installation "The following $1 packages/dependencies will be installed:\n"
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
     echo -e "\t\t\t$i"

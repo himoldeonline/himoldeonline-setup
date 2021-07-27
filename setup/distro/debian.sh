@@ -36,7 +36,8 @@ _install_packages () {
   elif [[ $1 == 'xblock_sdk' ]]; then
     PACKAGES=("${XBLOCK_SDK_DEPENDENCIES[@]}")
   fi
-    _info_installation "The following packages will be installed:\n"
+	
+  _info_installation "The following $1 packages/dependencies will be installed:\n"
 	for i in "${PACKAGES[@]}"; do
 		dpkg -s $i &>>  $_LOG_FILE || _log_tail_exit
     if [[  $? -eq "1" ]]; then
