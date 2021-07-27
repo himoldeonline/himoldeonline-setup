@@ -96,40 +96,39 @@ _dir_exist () {
   return 1
 }
 
-# _exists ()
-# {
-#   _validation  "Check if \e[0;31m$1\e[0 is nonempty"
-#   _is_nonempty $1 &&  _sub_info "Directory $1 is non-empty. The folder will be overwritten. " && _continue
-#
-# }
-
-_is_nonempty () {
-  # returns:
-  # ..0 = directory is empty
-  # ..1 = directory is not empty
-  # ..2 = directory does not exist
-  if [ -d $1 ]; then
-    if [ "$(ls -A $1)" ]; then
-       return 0
-     fi
-     return 1
-  fi
-  return 1
-}
-
 _dir_empty () {
-  # returns:
-  # ..0 = directory is empty
-  # ..1 = directory is not empty
-  # ..2 = directory does not exist
   if [ -d $1 ]; then
     if [ "$(ls -A $1)" ]; then
-       return 1
+       return 1 # directory is not empty
      fi
-     return 0
+     return 0 # directory is empty
   fi
-  return 2
+  return 2 # directory does not exist
 }
+
+_dir_can_clone () {
+  if [ -d $1 ]; then
+    if [ "$(ls -A $1)" ]; then
+       return 1 # dir not empty -> cant clone
+     fi
+     return 0 # dir empty -> can clone
+  fi
+  return 0 # dir does not exist -> can clone
+}
+
+# _is_nonempty () {
+#   # returns:
+#   # ..0 = directory is empty
+#   # ..1 = directory is not empty
+#   # ..2 = directory does not exist
+#   if [ -d $1 ]; then
+#     if [ "$(ls -A $1)" ]; then
+#        return 0
+#      fi
+#      return 1
+#   fi
+#   return 1
+# }
 
 _ssh_github_validate () {
   # returns:
