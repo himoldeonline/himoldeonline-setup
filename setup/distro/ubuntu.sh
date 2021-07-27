@@ -63,7 +63,6 @@ _install_packages () {
 }
 
 _get_docker () {
-  if _has_command docker; then return 0; fi
 	_info_installation 'Docker'
   _continue
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg &&

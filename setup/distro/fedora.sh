@@ -63,7 +63,6 @@ _install_packages () {
 }
 
 _get_docker () {
-  if _has_command docker; then return 0; fi
   _info_installation 'Docker'
   _continue
   sudo dnf install dnf-plugins-core  -y &>> $_LOG_FILE || _log_tail_exit

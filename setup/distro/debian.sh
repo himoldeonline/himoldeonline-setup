@@ -36,7 +36,7 @@ _install_packages () {
   elif [[ $1 == 'xblock_sdk' ]]; then
     PACKAGES=("${XBLOCK_SDK_DEPENDENCIES[@]}")
   fi
-	
+
   _info_installation "The following $1 packages/dependencies will be installed:\n"
 	for i in "${PACKAGES[@]}"; do
 		dpkg -s $i &>>  $_LOG_FILE || _log_tail_exit
@@ -63,7 +63,6 @@ _install_packages () {
 }
 
 _get_docker () {
-  if _has_command docker; then return 0; fi
 	_info_installation 'Docker'
   _continue
   curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg &&
