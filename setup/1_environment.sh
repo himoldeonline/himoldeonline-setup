@@ -9,6 +9,8 @@ _info_validation  "Distro is either Debian, Fedora or Ubuntu"
 _info_validation  "Script is not run as root"
   _is_root && _abort 'Script must NOT be run as root or with root privileges' || _info_ok "yes"
 
+_info_validation; sudo -v && _info_ok "ok" || exit 1
+
   _ROPOSITORIES=(
     $REPO_TUTOR $REPO_TIBETHEME $REPO_OPENEDX_DEV $REPO_INSTRUCTION $REPO_OPENEDX_PLATFORM
   )
@@ -27,7 +29,7 @@ _info_validation  "Script is not run as root"
 _info_validation "Check default shell"
 _has_profiles && _info_ok $SHELL_TYPE || _abort 'Could not find any shell profile'
 
-_info_validation  "Checking if running inside Windows Subsystem for Linux"
+_info_validation  "Running inside Windows Subsystem for Linux"
 if _running_wsl; then
    _info_ok "yes"
   _info_validation  "Checking if Docker Desktop is running"
