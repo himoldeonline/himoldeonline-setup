@@ -5,15 +5,20 @@ _log_msg 'START 5_tutor.sh'
 
 _log_msg 'Installing Open edX with Tutor'
 
-
+# install tutor if not installed
 if ! _is_command tutor; then
   if ! _is_command docker-compose; then
     _info_error 'Tutor needs Docker Compose to be installed'
     _log_tail_exit
   fi
+  _log_msg 'Installing Tutor'
   _info_installation "Tutor\n"
   eval 'pip3 install -e $TUTOR_ROOT' &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 fi
+
+# add hosts if not added
+_log_msg 'Adding hosts if not added'
+_add_host "127.0.0.1" "local.overhang.io" && _add_host "127.0.0.1" "studio.local.overhang.io"
 
 _tutor_from_scratch_build_dev () {
   # using our configurations, we build the images needed for running open edx dev
@@ -22,6 +27,7 @@ _tutor_from_scratch_build_dev () {
   # ..tutor local stop
   # ..tutor images build openedx-dev
   # what we end up with is both local and dev images that can be started with tutor local start and tutor dev start
+  _yes_or_no "Begin installation of all Open edX docker images" || eval '_info_ok "skipping" && return 0'
   _info_installation "Getting Tutor Configurations"
   tutor config save &>> $_LOG_FILE && _info_ok 'ok'  || _log_tail_exit
   sleep 2
