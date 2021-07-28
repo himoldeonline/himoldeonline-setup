@@ -36,7 +36,7 @@ _add_user_to_group () {
   # add user to a group
   # 1st arg: username
   # 2nd arg: group-name
-  sudo usermod -aG $2 $1
+  sudo gpasswd -a $1 $2
 }
 
 _remove_user_from_group () {

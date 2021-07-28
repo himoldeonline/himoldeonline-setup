@@ -26,40 +26,41 @@ _tutor_from_scratch_build_dev () {
   tutor config save &>> $_LOG_FILE && _info_ok 'ok'  || _log_tail_exit
   sleep 2
 
+  # running commands with the docker user id (notice the leading 'sg docker -c')
   _info_installation "Pulling Open edX Docker Image"
-  tutor local dc pull &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  sg docker -c "tutor local dc pull"
   sleep 2
 
   _info_installation "Starting up container (running a fresh copy of Open edX) from pulled Image"
-  tutor local start --detach &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  sg docker -c "tutor local start --detach"
   sleep 2
 
   _info_installation "Initiate Open edX: Databases, Migrations and Applications"
-  tutor local init &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  sg docker -c "tutor local init"
   sleep 2
 
   _info_installation "Build new Open edX Image from current running Contianer"
-  tutor images build openedx &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  sg docker -c "tutor images build openedx"
   sleep 2
 
   _info_installation "Stopping Container"
-  tutor local stop &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  sg docker -c "tutor local stop"
   sleep 2
 
   _info_installation "Build new Developement Image with extra assets"
-  tutor images build openedx-dev &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  sg docker -c "tutor images build openedx-dev"
   sleep 2
 
   _info_installation "Start the Open edX Developement Environment"
-  tutor dev start --detach &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  sg docker -c "tutor dev start --detach"
   sleep 2
 
   _info_installation "Start up Open edX and install the extra assets"
-  tutor dev run lms pip install --requirement requirements/edx/development.txt &>> $_LOG_FILE || _log_tail_exit
+  sg docker -c "tutor dev run lms pip install --requirement requirements/edx/development.txt"
   sleep 2
-  tutor dev run lms npm install &>> $_LOG_FILE || _log_tail_exit
+  sg docker -c "tutor dev run lms npm install"
   sleep 2
-  tutor dev run lms openedx-assets build --env=dev &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  sg docker -c "tutor dev run lms openedx-assets build --env=dev"
 }
 _tutor_from_scratch_build_dev
 
