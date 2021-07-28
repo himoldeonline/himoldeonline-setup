@@ -80,17 +80,16 @@ _get_pyenv
 
 _get_docker_compose () {
     # if docker-compose is installed, jump out of function
-  if _has_command docker-compose; then
-     return 0
-  fi
+  if _has_command docker-compose; then return 0; fi
+
   _log_msg 'Installing Docker Compose'
   _info_installation "Installing Docker Compose"
   python3 -m pip install --upgrade pip &>> $_LOG_FILE || _log_tail_exit
   pip3 install --user docker-compose &>> $_LOG_FILE || _log_tail_exit
   _info_ok 'ok'
-  if _has_command docker-compose; then
-     return 0
-  fi
+  if _has_command docker-compose; then return 0; fi
+
+  # if docker-compose is not callable, add to profile and export path to executable to PATH
   export PATH="$HOME/.local/bin:$PATH"
   _append_to_profile 'export PATH="$HOME/.local/bin:$PATH"'
 }
