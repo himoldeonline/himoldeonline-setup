@@ -2,7 +2,7 @@
 
 BASE_DEPENDENCIES=(
 	lsb-release curl  gpg  nano  git rsync openssh-client
-	tree apt-transport-https ca-certificates gnupg
+	tree apt-transport-https ca-certificates gnupg python3 python3-pip
 )
 
 PYENV_DEPENDENCIES=(
@@ -70,5 +70,5 @@ _get_docker () {
   _continue
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg &&
   echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-  sudo apt-get install -y docker-ce docker-ce-cli containerd.io  &>> $_LOG_FILE || _log_tail_exit
+  sudo apt-get update &>> $_LOG_FILE && sudo apt-get install -y docker-ce docker-ce-cli containerd.io &>> $_LOG_FILE || _log_tail_exit
 }
