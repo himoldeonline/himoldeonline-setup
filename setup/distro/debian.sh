@@ -38,7 +38,7 @@ _install_packages () {
   fi
 
 	for i in "${PACKAGES[@]}"; do
-		dpkg -s $i &>>  $_LOG_FILE || _log_tail_exit
+		dpkg -s $i &>> $_LOG_FILE
     if [[  $? -eq "1" ]]; then
       PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
     fi
