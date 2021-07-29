@@ -17,7 +17,6 @@ OPENEDX_DEV_ROOT=~/himoldeonline/open_edx_dev_source/openedx-dev
 THEMES_ROOT=~/himoldeonline/open_edx_themes_source
 TIBE_THEME_ROOT=~/himoldeonline/open_edx_themes_source/tibetheme
 TUTOR_ROOT=~/himoldeonline/tutor_source/tutor
-CRAFT_DOCKER_ROOT=~/himoldeonline/craft_cms_source/docker
 
 # Tutors Open edX environment
 TUTOR_ENV_ROOT=~/.local/share/tutor # default environment for Open edX when using Tutor
