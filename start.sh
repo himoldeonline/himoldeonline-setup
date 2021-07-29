@@ -36,3 +36,4 @@ source ./setup/5_tutor.sh || _log_tail_exit
 _log_remove
 
 _header 'Done!'
+if ! _running_wsl; then echo 'Save all your work and press Enter to reboot' && read && reboot; fi

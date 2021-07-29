@@ -20,7 +20,13 @@ fi
 _log_msg 'Adding hosts if not added'
 _add_host "127.0.0.1" "local.overhang.io" && _add_host "127.0.0.1" "studio.local.overhang.io"
 
+
+# ..transfer our tutor config files to thein tutor root environment for Open edX
+_dir_exist $TUTOR_ENV_ROOT || mkdir -p $TUTOR_ENV_ROOT
+rsync -auv $OPENEDX_DEV_ROOT/tutor/ $TUTOR_ENV_ROOT/ || exit
+
 _tutor_from_scratch_build_dev () {
+  _log_msg 'Running: _tutor_from_scratch_build_dev'
   # using our configurations, we build the images needed for running open edx dev
   # this will go through the steps equivalent to:
   # ..tutor local quickstart
@@ -69,6 +75,32 @@ _tutor_from_scratch_build_dev () {
   sg docker -c "tutor dev run lms openedx-assets build --env=dev"
 }
 _tutor_from_scratch_build_dev
+
+_tutor_post_installation_setup () {
+  _log_msg 'Running: _tutor_post_installation_setup'
+  _info_installation "Create new Admin Account for Open edX Studio"
+
+  _cnfrm='no'
+  while [[ $_cnfrm != 'y' ]]
+  do
+    echo 'Type in the email address you want to use for logging into Open edX studio:'
+    read EDX_EMAIL
+    _yes_or_no "Is $EDX_EMAIL correct?" && _cnfrm='y'
+  done
+  sg docker -c "dev createuser --staff --superuser admin $EDX_EMAIL && sleep 2"
+
+  _info_installation "Activating Theme for Open edX"
+  sg docker -c "tutor dev settheme tibetheme local.overhang.io:8000 studio.local.overhang.io:8001 && sleep 2"
+
+  # ..rebuild the openedx  dev image
+  _info_installation "Rebuilding Open edX Developement Image"
+  sg docker -c "tutor images build openedx-dev && sleep 2"
+
+  # ..stop any running openedx dev conatainer and reboot
+  _info_installation "Stopping All Running Open edX Containers"
+  sg docker -c "tutor dev stop && sleep 2"
+}
+_tutor_post_installation_setup
 
 
 _log_msg 'END 5_tutor.sh'
