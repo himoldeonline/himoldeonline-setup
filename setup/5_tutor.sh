@@ -38,7 +38,7 @@ _tutor_from_scratch_build_dev () {
   # ..tutor local stop
   # ..tutor images build openedx-dev
   # what we end up with is both local and dev images that can be started with tutor local start and tutor dev start
-  _yes_or_no "Begin installation of all Open edX docker images" || eval '_info_ok "skipping" && return 0'
+  _yes_or_no "Run the Tutor installation of all Open edX docker images" || eval '_info_ok "skipping" && return 0'
   _info_installation "Getting Tutor Configurations"
   tutor config save &>> $_LOG_FILE && _info_ok 'ok'  || _log_tail_exit
   sleep 2
@@ -82,6 +82,7 @@ _tutor_from_scratch_build_dev () {
 _tutor_from_scratch_build_dev
 
 _tutor_post_installation_setup () {
+    _yes_or_no "Run the Tutor post installation setup for (setting admin account for Open edX and Tibe-theme etc.)" || eval '_info_ok "skipping" && return 0'
   _log_msg 'Running: _tutor_post_installation_setup'
   _info_installation "Create new Admin Account for Open edX Studio"
 
