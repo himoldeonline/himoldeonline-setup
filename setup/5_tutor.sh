@@ -26,9 +26,6 @@ _log_msg 'Adding hosts if not added'
 _add_host "127.0.0.1" "local.overhang.io" && _add_host "127.0.0.1" "studio.local.overhang.io"
 
 
-# ..transfer our tutor config files to thein tutor root environment for Open edX
-_dir_exist $TUTOR_ENV_ROOT || mkdir -p $TUTOR_ENV_ROOT
-rsync -auv $OPENEDX_DEV_ROOT/tutor/ $TUTOR_ENV_ROOT/ || exit
 
 _tutor_from_scratch_build_dev () {
   _log_msg 'Running: _tutor_from_scratch_build_dev'
@@ -40,7 +37,11 @@ _tutor_from_scratch_build_dev () {
   # what we end up with is both local and dev images that can be started with tutor local start and tutor dev start
   _yes_or_no "Run the Tutor installation of all Open edX docker images" || eval '_info_ok "skipping" && return 0'
   _info_installation "Getting Tutor Configurations"
-  tutor config save &>> $_LOG_FILE && _info_ok 'ok'  || _log_tail_exit
+
+  # ..transfer our tutor config files to thein tutor root environment for Open edX
+  _dir_exist $TUTOR_ENV_ROOT || mkdir -p $TUTOR_ENV_ROOT
+  rsync -auv $OPENEDX_DEV_ROOT/tutor/ $TUTOR_ENV_ROOT/ || _log_tail_exit
+  tutor config save &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
 
   # running commands with the docker user id (notice the leading 'sg docker -c')
