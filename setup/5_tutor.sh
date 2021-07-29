@@ -26,7 +26,6 @@ _log_msg 'Adding hosts if not added'
 _add_host "127.0.0.1" "local.overhang.io" && _add_host "127.0.0.1" "studio.local.overhang.io"
 
 
-
 _tutor_from_scratch_build_dev () {
   _log_msg 'Running: _tutor_from_scratch_build_dev'
   # using our configurations, we build the images needed for running open edx dev
@@ -38,7 +37,7 @@ _tutor_from_scratch_build_dev () {
   _yes_or_no "Run the Tutor installation of all Open edX docker images" || eval '_info_ok "skipping" && return 0'
   _info_installation "Getting Tutor Configurations"
 
-  # ..transfer our tutor config files to thein tutor root environment for Open edX
+  # ..transfer our tutor config (THIS REQUIRES THAT WE HAVE CLONED openedx-dev) files to the tutor root environment for Open edX
   _dir_exist $TUTOR_ENV_ROOT || mkdir -p $TUTOR_ENV_ROOT
   rsync -auv $OPENEDX_DEV_ROOT/tutor/ $TUTOR_ENV_ROOT/ || _log_tail_exit
   tutor config save &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
@@ -81,6 +80,7 @@ _tutor_from_scratch_build_dev () {
   sg docker -c "tutor dev run lms openedx-assets build --env=dev"
 }
 _tutor_from_scratch_build_dev
+
 
 _tutor_post_installation_setup () {
     _yes_or_no "Run the Tutor post installation setup for (setting admin account for Open edX and Tibe-theme etc.)" || eval '_info_ok "skipping" && return 0'
