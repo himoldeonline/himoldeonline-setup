@@ -2,8 +2,6 @@
 
 _log_msg 'START 4_clone.sh'
 
-_log_msg 'Cloning Repositories'
-
 _clone_git_repository () {
   # 1st arg: URL
   # 2nd arg: DIR
