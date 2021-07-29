@@ -14,6 +14,13 @@ if ! _is_command tutor; then
   _log_msg 'Installing Tutor'
   _info_installation "Tutor\n"
   eval 'pip3 install -e $TUTOR_ROOT' &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  
+  # after install, if not call-able from $PATH
+  if ! _has_command tutor; then
+    _append_to_profile 'export PATH="$HOME/.local/bin:$PATH"'
+    export PATH="$HOME/.local/bin:$PATH"
+  fi
+  
 fi
 
 # add hosts if not added
