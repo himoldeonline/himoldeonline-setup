@@ -85,15 +85,15 @@ _tutor_from_scratch_build_dev
 _tutor_post_installation_setup () {
     _yes_or_no "Run the Tutor post installation setup for (setting admin account for Open edX and Tibe-theme etc.)" || eval '_info_ok "skipping" && return 0'
   _log_msg 'Running: _tutor_post_installation_setup'
-  _info_installation "Create new Admin Account for Open edX Studio"
 
   _cnfrm='no'
   while [[ $_cnfrm != 'y' ]]
   do
-    echo 'Type in the email address you want to use for logging into Open edX studio:'
+    echo -e '\nType in the email address you want to use for logging into Open edX studio:'
     read EDX_EMAIL
     _yes_or_no "Is $EDX_EMAIL correct?" && _cnfrm='y'
   done
+  _info_installation "Creating new Admin Account for Open edX Studio\n"
   sg docker -c "dev createuser --staff --superuser admin $EDX_EMAIL && sleep 2"
 
   _info_installation "Activating Theme for Open edX"
