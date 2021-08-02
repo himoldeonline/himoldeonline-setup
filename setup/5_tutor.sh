@@ -94,7 +94,7 @@ _tutor_post_installation_setup () {
     _yes_or_no "Is $EDX_EMAIL correct?" && _cnfrm='y'
   done
   _info_installation "Creating new Admin Account for Open edX Studio\n"
-  sg docker -c "dev createuser --staff --superuser admin $EDX_EMAIL && sleep 2"
+  sg docker -c "tutor dev createuser --staff --superuser admin $EDX_EMAIL && sleep 2"
 
   _info_installation "Activating Theme for Open edX"
   sg docker -c "tutor dev settheme tibetheme local.overhang.io:8000 studio.local.overhang.io:8001 && sleep 2"
