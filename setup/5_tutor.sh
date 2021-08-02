@@ -39,7 +39,7 @@ _tutor_from_scratch_build_dev () {
 
   # ..transfer our tutor config (THIS REQUIRES THAT WE HAVE CLONED openedx-dev) files to the tutor root environment for Open edX
   _dir_exist $TUTOR_ENV_ROOT || mkdir -p $TUTOR_ENV_ROOT
-  rsync -auv $OPENEDX_DEV_ROOT/tutor/ $TUTOR_ENV_ROOT/ || _log_tail_exit
+  rsync -au $OPENEDX_DEV_ROOT/tutor/ $TUTOR_ENV_ROOT/ || _log_tail_exit
   tutor config save &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
   sleep 2
 
