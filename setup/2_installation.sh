@@ -51,7 +51,7 @@ _get_pyenv () {
 
   if ! _has_command pyenv; then
     PYTHON_VERSION="3.9.6"
-    _yes_or_no "Do you want to install Pyenv with Python $PYTHON_VERSION" || eval '_info_ok "skipping" && return 0'
+    _yes_or_no "Do you want to install Pyenv with Python $PYTHON_VERSION [Optional]" || eval '_info_ok "skipping" && return 0'
 
     _log_msg "Installing pyenv and $PYTHON_VERSION"
     _install_packages 'pyenv'
