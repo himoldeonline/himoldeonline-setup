@@ -84,6 +84,7 @@ _get_docker_compose () {
 
   _log_msg 'Installing Docker Compose'
   _info_installation "Installing Docker Compose"
+  _continue
   python3 -m pip install --upgrade pip &>> $_LOG_FILE || _log_tail_exit
   pip3 install --user docker-compose &>> $_LOG_FILE || _log_tail_exit
   _info_ok 'ok'
