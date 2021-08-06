@@ -36,12 +36,13 @@ source ./setup/5_tutor.sh || _log_tail_exit
 _log_remove
 
 
-_header 'Overview of Directorires'
+_header 'Overview of cloned Directorires'
 echo -e "\e[1;89mRepository:\n\e[1;32mOpen edX Source Code\e[1;94m -> \e[3;91m$EDX_PLATFORM_ROOT/\e[0m\n"
 echo -e "\e[1;89mRepository:\n\e[1;32mChanges we make to Open edX\e[1;94m -> \e[3;91m$OPENEDX_DEV_ROOT/\e[0m\n"
 echo -e "\e[1;89mRepository:\n\e[1;32mTibe Theme for Open edX\e[1;94m -> \e[3;91m$TIBE_THEME_ROOT/\e[0m\n"
+echo -e "\e[1;89mRepository:\n\e[1;32mSetup and tools for himoldeonline\e[1;94m -> \e[3;91m$SETUP_ROOT/\e[0m\n"
 echo -e "\e[1;89mRepository:\n\e[1;32mOfficial Tutor Source Code\e[1;94m -> \e[3;91m$TUTOR_ROOT/\e[0m\n"
-echo -e "\e[1;89mTutor Environment:\n\e[1;32mConfigurations for Open edX\e[1;94m -> \e[3;91m$TUTOR_ENV_ROOT/\e[0m\n"
+echo -e "\e[1;89mTutor Environment for Open edX:\n\e[1;32mConfigurations for Open edX\e[1;94m -> \e[3;91m$TUTOR_ENV_ROOT/\e[0m\n"
 
 _header 'Done!'
 
