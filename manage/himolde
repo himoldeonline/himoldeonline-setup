@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+#~~~~~~~~~~#~~~~~~~~~~#
+#
+# Author(s):
+#   Emil Bratt Børsting
+#
+# Description:
+#   This script makes it easy to start/stop the local dev stack for
+#   himoldeonline whith one command
+#   You must have installed the dev stack with the designated setup-script
+#   found in this reposotory
+#   The script sources files from this repository using absolute paths
+#
+# Placement:
+#   ~/.local/bin/himolde
+#
+#~~~~~~~~~~#~~~~~~~~~~#
+
+export _LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/lib
+source $_LIB_DIR/display.sh || exit 1
+source $_LIB_DIR/validate.sh || exit 1
+source $_LIB_DIR/system.sh || exit 1
+source $_LIB_DIR/paths.sh || exit 1
+source $_LIB_DIR/repositories.sh || exit 1
+source $_LIB_DIR/log.sh || exit 1
+source $_LIB_DIR/hostnames.sh || exit 1
+
+
+### Start ##################
+clear
+_log_init 'manage.log' "$HOME/himoldeonline/logs"
+_banner '### Manage Script for HiMolde-Online Developement Environment ###'
+
+_validate_install () {
+  _has_command tutor || exit 127
+  _has_command nitro || exit 127
+  return 0
+}
+_validate_install
+
+
+_mainloop () {
+  _list_options \
+    '1. Start HiMoldeonline Containers' \
+    '2. Stop HiMoldeonline Containers'  \
+    '3. List Running Containers'  \
+    '4. Read logfile'  \
+    '5. Clean up logfile'  \
+    '0. Exit'
+  read _choice
+  if [[ $_choice == '0' ]]; then
+    _banner '# Exit HiMoldeonline #'
+    exit 0
+  elif [[ $_choice == '1' ]]; then
+    _banner '# Starting Containers #'
+    _log_msg 'Starting HiMoldeonline Containers'
+    tutor dev start --detach && sleep 2 &&
+    nitro start && sleep 2 &&
+    docker network connect tutor_dev_default $_HOST_CRAFT_CMS_LMS &&
+    _log_msg 'OK'
+  elif [[ $_choice == '2' ]]; then
+    _banner '# Stopping Containers #'
+    _log_msg 'Stopping HiMoldeonline Containers'
+    nitro stop && sleep 2 &&
+    tutor dev stop && sleep 2 &&
+    _log_msg 'OK'
+  elif [[ $_choice == '3' ]]; then
+    if ! eval "docker ps | grep -q niro" && ! eval "docker ps | grep -q tutor_"
+    then
+      echo 'There are no HiMolde containers running'
+    else
+      docker ps --filter 'name=tutor_dev' --filter 'name=nitro'
+    fi
+  elif [[ $_choice == '4' ]]; then
+    _log_tail
+  elif [[ $_choice == '5' ]]; then
+    _log_remove
+  fi
+}
+while [[ true ]]; do _mainloop; done
