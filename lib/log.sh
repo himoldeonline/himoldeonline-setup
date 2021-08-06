@@ -52,6 +52,11 @@ _log_tail_exit () {
   exit 1
 }
 
+_log_tail () {
+  _style_out "Reading Log: $_LOG_FILE \n\nSTART\n`\
+  tail -50 $_LOG_FILE`\nEND\n\n"
+}
+
 _log_remove () {
   rm $_LOG_FILE
 }
