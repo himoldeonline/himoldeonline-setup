@@ -6,9 +6,9 @@
 #### Run the below command in your terminal
 * The script downloads this repository to your homefolder and runs the start.sh file
 ```bash
-export CWD=~/himoldeonline/himoldeonline_setup_source && \
-  rm -r $CWD; mkdir -p $CWD && cd $CWD && git clone https://github.com/himoldeonline/himoldeonline-setup.git && \
-  cd ~/himoldeonline-setup && ./start.sh && unset CWD
+export _DIR=~/himoldeonline/himoldeonline_setup_source && rm -rf $_DIR; mkdir -p $_DIR && \
+  cd $_DIR && git clone https://github.com/himoldeonline/himoldeonline-setup.git && \
+  cd $_DIR/himoldeonline-setup && ./start.sh && unset _DIR
 ```
 
 #### What does start.sh do?
