@@ -2,7 +2,11 @@
 
 _log_init () {
   # 1st arg: path to logfile
+  # 2nd arg: specify directory to store log (optional)
   export _LOG_FILE=$1
+  if [[ $# -gt 1 ]]; then
+    mkdir -p $2 && export _LOG_FILE=$2/$_LOG_FILE
+  fi
   _L='###############################'
   _TIME=$(date +"%Y-%m-%d %H:%M:%S")
   echo -e "$_L\n##### $_TIME #####\n$_L" >> $_LOG_FILE 2>&1
