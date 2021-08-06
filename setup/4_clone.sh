@@ -44,6 +44,7 @@ __start_git_clone $INSTRUCTION_ROOT $GIT_URL_OPENEDX_INSTRUCTIONS
 __start_git_clone $OPENEDX_DEV_ROOT $GIT_URL_OPENEDX_DEV
 __start_git_clone $TIBE_THEME_ROOT $GIT_URL_TIBETHEME
 __start_git_clone $TUTOR_ROOT $GIT_URL_TUTOR
+__start_git_clone $SETUP_ROOT $GIT_URL_SETUP
 
 # checkout branches and tags
 _checkout_tags $EDX_PLATFORM_ROOT $TAG_EDX_PLATFORM

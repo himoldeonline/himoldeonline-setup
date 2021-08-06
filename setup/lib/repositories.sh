@@ -14,5 +14,8 @@ BRANCH_OPENEDX_DEV='setup'
 # openedx-tibetheme
 GIT_URL_TIBETHEME='git@github.com:himoldeonline/openedx-tibetheme.git'
 
+# himoldeonline-setup
+GIT_URL_SETUP='git@github.com:himoldeonline/himoldeonline-setup.git'
+
 # tutor
 GIT_URL_TUTOR='https://github.com/overhangio/tutor'
