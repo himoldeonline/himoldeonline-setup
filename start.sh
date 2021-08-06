@@ -46,4 +46,4 @@ echo -e "\e[1;89mTutor Environment for Open edX:\n\e[1;32mConfigurations for Ope
 
 _header 'Done!'
 
-if ! _running_wsl; then echo 'Save all your work and press Enter to reboot' && read && reboot; fi
+if ! _running_wsl; then echo 'You should do a reboot for any changes to reload'; fi
