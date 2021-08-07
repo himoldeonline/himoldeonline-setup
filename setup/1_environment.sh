@@ -46,4 +46,11 @@ if _running_wsl; then
    _info_ok "no"
 fi
 
+echo $PATH | grep -q "$HOME/.local/bin"
+if [ $? -eq 0 ]; then
+  _log_msg "Add $HOME/.local/bin to PATH"
+  _append_to_profile 'export PATH="$HOME/.local/bin:$PATH"'
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 _log_msg 'END 1_environment.sh'
