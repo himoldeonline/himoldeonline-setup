@@ -97,12 +97,14 @@ if ! _is_command nitro; then
 fi
 
 _nitro_init_environment () {
+  _yes_or_no "Run the Nitro init command" || eval '_info_ok "skipping" && return 0'
   _log_msg 'Running nitro init'
   sg docker -c "nitro init"
 }
 _nitro_init_environment
 
 _nitro_add_portal () {
+  _yes_or_no "Add our website Portal to nitro" || eval '_info_ok "skipping" && return 0'
   _log_msg 'Adding our Craft CMS platform Portal'
   sg docker -c "nitro add $HOME/himoldeonline/craft_web_portal_source/portal/"
 }
