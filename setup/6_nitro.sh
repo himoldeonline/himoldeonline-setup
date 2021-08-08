@@ -114,7 +114,7 @@ _nitro_add_portal () {
   sg docker -c "nitro add"
   cd $_START_DIRECTORY
 }
-_nitro_add_portal
+# _nitro_add_portal
 
 _nitro_portal_composer_install () {
   _yes_or_no "Run composer install on $WEB_PORTAL_ROOT" || eval '_info_ok "skipping" && return 0'
@@ -123,7 +123,7 @@ _nitro_portal_composer_install () {
   sg docker -c "nitro composer install"
   cd $_START_DIRECTORY
 }
-_nitro_portal_composer_install
+# _nitro_portal_composer_install
 
 _nitro_portal_db_import () {
   cd $WEB_PORTAL_ROOT
@@ -132,7 +132,7 @@ _nitro_portal_db_import () {
   sg docker -c "nitro db import db/portal.sql"
   cd $_START_DIRECTORY
 }
-_nitro_portal_db_import
+# _nitro_portal_db_import
 
 cd $_START_DIRECTORY
 _log_msg 'END 6_nitro.sh'
