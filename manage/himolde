@@ -66,7 +66,7 @@ _mainloop () {
     tutor dev stop && sleep 2 &&
     _log_msg 'OK'
   elif [[ $_choice == '3' ]]; then
-    if ! eval "docker ps | grep -q niro" && ! eval "docker ps | grep -q tutor_"
+    if ! eval "docker ps | grep -q nitro" && ! eval "docker ps | grep -q tutor_"
     then
       echo 'There are no HiMolde containers running'
     else
