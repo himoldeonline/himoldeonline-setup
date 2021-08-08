@@ -18,7 +18,7 @@ THEMES_ROOT=~/himoldeonline/open_edx_themes_source
 TIBE_THEME_ROOT=~/himoldeonline/open_edx_themes_source/tibetheme
 TUTOR_ROOT=~/himoldeonline/tutor_source/tutor
 SETUP_ROOT=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup
-WEB_PORTAL_ROOT=~/himoldeonline/web_portal_source/portal
+WEB_PORTAL_ROOT=~/himoldeonline/web_portal_source/himoldeonline-portal
 
 # Tutors Open edX environment
 TUTOR_ENV_ROOT=~/.local/share/tutor # default environment for Open edX when using Tutor
