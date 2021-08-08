@@ -111,7 +111,7 @@ _nitro_add_portal () {
   _yes_or_no "Add our website Portal to nitro" || eval '_info_ok "skipping" && return 0'
   _log_msg 'Adding our Craft CMS platform Portal'
   echo "Make sure to type yes to all and name the database 'portal'"
-  sg docker -c "nitro add ."
+  sg docker -c "nitro add"
   cd $_START_DIRECTORY
 }
 _nitro_add_portal
