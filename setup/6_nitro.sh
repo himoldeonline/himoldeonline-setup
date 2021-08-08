@@ -2,6 +2,8 @@
 
 _log_msg 'START 6_tutor.sh'
 
+_START_DIRECTORY=$(pwd) # preserve the original woring directory before cd`ing into directories which will be part of this script
+
 _install_nitro () {
   # this is a modified version of nitros official installation script
   # the script was fetched from here: http://installer.getnitro.sh
@@ -105,14 +107,23 @@ _nitro_init_environment () {
 _nitro_init_environment
 
 _nitro_add_portal () {
+  cd $WEB_PORTAL_ROOT
   _yes_or_no "Add our website Portal to nitro" || eval '_info_ok "skipping" && return 0'
   _log_msg 'Adding our Craft CMS platform Portal'
   echo "Make sure to type yes to all and name the database 'portal'"
-  sg docker -c "nitro add $WEB_PORTAL_ROOT"
+  sg docker -c "nitro add ."
+  cd $_START_DIRECTORY
 }
 _nitro_add_portal
 
+_nitro_portal_composer_install () {
+  cd $WEB_PORTAL_ROOT
+  _yes_or_no "Run composer install on $WEB_PORTAL_ROOT" || eval '_info_ok "skipping" && return 0'
+  _log_msg "Running nitro composer install inside $WEB_PORTAL_ROOT"
+  nitro composer install
+  cd $_START_DIRECTORY
+}
+_nitro_portal_composer_install
 
-
-
+cd $_START_DIRECTORY
 _log_msg 'END 6_nitro.sh'
