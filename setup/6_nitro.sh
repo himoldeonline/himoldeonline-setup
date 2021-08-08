@@ -99,6 +99,7 @@ fi
 _nitro_init_environment () {
   _yes_or_no "Run the Nitro init command" || eval '_info_ok "skipping" && return 0'
   _log_msg 'Running nitro init'
+  echo -e 'We currently use these images:\nMySQL Ver. 8\nRedis'
   sg docker -c "nitro init"
 }
 _nitro_init_environment
@@ -106,7 +107,8 @@ _nitro_init_environment
 _nitro_add_portal () {
   _yes_or_no "Add our website Portal to nitro" || eval '_info_ok "skipping" && return 0'
   _log_msg 'Adding our Craft CMS platform Portal'
-  sg docker -c "nitro add $HOME/himoldeonline/craft_web_portal_source/portal/"
+  echo "Make sure to type yes to all and name the database 'portal'"
+  sg docker -c "nitro add $WEB_PORTAL_ROOT"
 }
 _nitro_add_portal
 

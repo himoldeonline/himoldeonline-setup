@@ -47,6 +47,7 @@ _mainloop () {
     '3. List Running Containers'  \
     '4. Read logfile'  \
     '5. Clean up logfile'  \
+    "6. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
     '0. Exit'
   read _choice
   if [[ $_choice == '0' ]]; then
@@ -57,7 +58,7 @@ _mainloop () {
     _log_msg 'Starting HiMoldeonline Containers'
     tutor dev start --detach && sleep 2 &&
     nitro start && sleep 2 &&
-    docker network connect tutor_dev_default nitro-proxy &&
+    docker network connect tutor_dev_default portal.nitro &&
     _log_msg 'OK'
   elif [[ $_choice == '2' ]]; then
     _banner '# Stopping Containers #'
@@ -76,6 +77,13 @@ _mainloop () {
     _log_tail
   elif [[ $_choice == '5' ]]; then
     _log_remove
+  elif [[ $_choice == '6' ]]; then
+    export __cwd=$(pwd)
+    cd $WEB_PORTAL_ROOT
+    _log_msg "Running $WEB_PORTAL_ROOT/fix_perm.sh"
+    source $WEB_PORTAL_ROOT/fix_perm.sh
+    cd $__cwd
+    unset __cwd
   fi
 }
 while [[ true ]]; do _mainloop; done

@@ -19,3 +19,6 @@ GIT_URL_SETUP='git@github.com:himoldeonline/himoldeonline-setup.git'
 
 # tutor
 GIT_URL_TUTOR='https://github.com/overhangio/tutor'
+
+# himoldeonline craft cms web portal
+GIT_WEB_PORTAL='git@github.com:himoldeonline/portal.git'
