@@ -58,7 +58,7 @@ _mainloop () {
     _log_msg 'Starting HiMoldeonline Containers'
     tutor dev start --detach && sleep 2 &&
     nitro start && sleep 2 &&
-    docker network connect tutor_dev_default portal.nitro &&
+    docker network connect tutor_dev_default $_HOST_DEV_WEB_PORTAL &&
     _log_msg 'OK'
   elif [[ $_choice == '2' ]]; then
     _banner '# Stopping Containers #'
