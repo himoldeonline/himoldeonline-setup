@@ -46,6 +46,7 @@ fi
 # installing the caller for the himoldeonline manage script for making some tasks easy
 if ! _has_command himolde; then
   _log_msg 'Install the himolde caller script'
+  mkdir -p ~/.local/bin
   echo -e '#!/usr/bin/env bash\nsource ~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/manage/himolde' > ~/.local/bin/himolde || _log_tail_exit
   _log_msg 'Running chmod +x on ~/.local/bin/himolde'
   chmod +x ~/.local/bin/himolde || _log_tail_exit
