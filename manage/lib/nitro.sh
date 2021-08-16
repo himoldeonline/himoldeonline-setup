@@ -116,6 +116,7 @@ _nitro_portal_composer_install () {
   _yes_or_no "Run composer install on $WEB_PORTAL_ROOT" || eval '_info_ok "skipping" && return 0'
   export __cwd=$(pwd)
   cd $WEB_PORTAL_ROOT
+  mv composer.lock composer.lock_bak
   nitro composer install
   cd $__cwd
   unset __cwd
