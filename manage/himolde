@@ -53,7 +53,8 @@ _mainloop () {
     "13. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
     "14. Bind-mount $EDX_PLATFORM_ROOT into the Open edX lms and cms containers" \
     "15. Add $_HOST_DEV_WEB_PORTAL to docker network: tutor_dev_default" \
-    "16. Remove $_HOST_DEV_WEB_PORTAL to docker network: tutor_dev_default" \
+    "16. Remove $_HOST_DEV_WEB_PORTAL from docker network: tutor_dev_default" \
+    "17. Set Tibe-Theme as Open edX theme for Open edX containers" \
     '0. Exit'
 
   read _choice
@@ -146,6 +147,15 @@ _mainloop () {
   elif [[ $_choice == '16' ]]; then
     _log_msg "Adding  $_HOST_DEV_WEB_PORTAL to docker network: tutor_dev_default"
     docker network disconnect tutor_dev_default $_HOST_DEV_WEB_PORTAL
+    
+  elif [[ $_choice == '17' ]]; then
+    if ! _file_exist $TUTOR_ENV_ROOT/env/dev/docker-compose.override.yml; then
+      echo 'You need to bind-mount $EDX_PLATFORM_ROOT into the Open edX lms and cms containers first'
+    elif _file_exist $TUTOR_ENV_ROOT/env/dev/docker-compose.override.yml; then
+      _log_msg 'Setting Tibe-Theme for Open edX lms and cms containers'
+      tutor dev settheme tibetheme $(tutor config printvalue LMS_HOST):8000 $(tutor config printvalue CMS_HOST):8001
+    fi
+
   fi
 }
 while [[ true ]]; do _mainloop; done
