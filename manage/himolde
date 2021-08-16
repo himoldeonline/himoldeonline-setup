@@ -47,7 +47,8 @@ _mainloop () {
     '3. List Running Containers'  \
     '4. Read logfile'  \
     '5. Clean up logfile'  \
-    "6. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
+    "6. Add page $WEB_PORTAL_ROOT to nitro"  \
+    "7. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
     '0. Exit'
   read _choice
   if [[ $_choice == '0' ]]; then
@@ -80,8 +81,17 @@ _mainloop () {
   elif [[ $_choice == '6' ]]; then
     export __cwd=$(pwd)
     cd $WEB_PORTAL_ROOT
+    _log_msg 'Adding our Craft CMS platform Portal'
+    echo "Make sure to type yes to all and name the database 'portal'"
+    nitro add
+    cp ./.env.example ./env
+    cd $__cwd
+    unset __cwd
+  elif [[ $_choice == '7' ]]; then
+    export __cwd=$(pwd)
+    cd $WEB_PORTAL_ROOT
     _log_msg "Running $WEB_PORTAL_ROOT/fix_perm.sh"
-    source $WEB_PORTAL_ROOT/fix_perm.sh
+    source $WEB_PORTAL_ROOT/fix_perm.sh && echo 'Done'
     cd $__cwd
     unset __cwd
   fi
