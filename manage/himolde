@@ -39,18 +39,19 @@ _banner '### Manage Script for HiMolde-Online Developement Environment ###'
 _mainloop () {
   _list_options \
     '1. Start HiMoldeonline Containers' \
-    '2. Stop HiMoldeonline Containers'  \
-    '3. List Running Containers'  \
-    '4. Read logfile'  \
-    '5. Clean up logfile'  \
-    "6. Install Tutor"  \
+    '2. Stop HiMoldeonline Containers' \
+    '3. List Running Containers' \
+    '4. Read logfile' \
+    '5. Clean up logfile' \
+    "6. Install Tutor" \
     "7. Install Open edX" \
     "8. Create admin user for Open edX" \
-    '9. Install Nitro'  \
-    '10. initialization of Nitro'  \
-    "11. Add page $WEB_PORTAL_ROOT to nitro"  \
+    '9. Install Nitro' \
+    '10. initialization of Nitro' \
+    "11. Add page $WEB_PORTAL_ROOT to nitro" \
     "12. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
-    "13. Run composer for $WEB_PORTAL_ROOT"  \
+    "13. Run composer for $WEB_PORTAL_ROOT" \
+    "14. Bind-mount $EDX_PLATFORM_ROOT into the Open edX lms and cms containers" \
     '0. Exit'
 
   read _choice
@@ -128,6 +129,10 @@ _mainloop () {
     _log_msg 'Installing Open edX'
     _install_open_edx
     fi
+
+  elif [[ $_choice == '14' ]]; then
+    _log_msg "Bind-mounting $EDX_PLATFORM_ROOT into Open edX dev lms and cms containers"
+    _bind_mount_edx_platform_source_code
 
   elif [[ $_choice == '8' ]]; then
     _log_msg 'Creating admin user for Open edX'
