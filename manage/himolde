@@ -18,7 +18,7 @@
 #~~~~~~~~~~#~~~~~~~~~~#
 
 export _LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/lib
-export _HIMOLDE_LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/manage/lib
+export _MANAGE_LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/manage/lib
 source $_LIB_DIR/display.sh || exit 1
 source $_LIB_DIR/validate.sh || exit 1
 source $_LIB_DIR/system.sh || exit 1
@@ -26,8 +26,8 @@ source $_LIB_DIR/paths.sh || exit 1
 source $_LIB_DIR/repositories.sh || exit 1
 source $_LIB_DIR/log.sh || exit 1
 source $_LIB_DIR/hostnames.sh || exit 1
-source $_HIMOLDE_LIB_DIR/tutor.sh || exit 1
-source $_HIMOLDE_LIB_DIR/nitro.sh || exit 1
+source $_MANAGE_LIB_DIR/tutor.sh || exit 1
+source $_MANAGE_LIB_DIR/nitro.sh || exit 1
 
 
 ### Start ##################
@@ -128,7 +128,7 @@ _mainloop () {
     _log_msg 'Installing Open edX'
     _install_open_edx
     fi
-    
+
   elif [[ $_choice == '8' ]]; then
     _log_msg 'Creating admin user for Open edX'
     _create_open_edx_admin
