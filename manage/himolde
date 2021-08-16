@@ -49,8 +49,8 @@ _mainloop () {
     '9. Install Nitro' \
     '10. initialization of Nitro' \
     "11. Add page $WEB_PORTAL_ROOT to nitro" \
-    "12. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
-    "13. Run composer for $WEB_PORTAL_ROOT" \
+    "12. Run composer for $WEB_PORTAL_ROOT" \
+    "13. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
     "14. Bind-mount $EDX_PLATFORM_ROOT into the Open edX lms and cms containers" \
     '0. Exit'
 
@@ -94,7 +94,7 @@ _mainloop () {
     echo "Make sure to type yes to all and name the database 'portal'"
     _nitro_add_himoldeonline_portal
 
-  elif [[ $_choice == '12' ]]; then
+  elif [[ $_choice == '13' ]]; then
     export __cwd=$(pwd)
     cd $WEB_PORTAL_ROOT
     _log_msg "Running $WEB_PORTAL_ROOT/fix_perm.sh"
@@ -115,7 +115,7 @@ _mainloop () {
     _log_msg 'initialization of Nitro'
     _nitro_init_environment
 
-  elif [[ $_choice == '13' ]]; then
+  elif [[ $_choice == '12' ]]; then
     _log_msg "Running composer inside $WEB_PORTAL_ROOT"
     _nitro_portal_composer_install
 
