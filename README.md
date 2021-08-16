@@ -1,4 +1,4 @@
-## Helper Tools for the himoldeonline project
+## Setup Tools for himoldeonline
 
 ### Get up and running
 #### Run the below command 'click the upper right box to fetch command into clipboard' in your terminal to get started
