@@ -150,7 +150,7 @@ _mainloop () {
     
   elif [[ $_choice == '17' ]]; then
     if ! _file_exist $TUTOR_ENV_ROOT/env/dev/docker-compose.override.yml; then
-      echo 'You need to bind-mount $EDX_PLATFORM_ROOT into the Open edX lms and cms containers first'
+      echo "You need to bind-mount $EDX_PLATFORM_ROOT into the Open edX lms and cms containers first"
     elif _file_exist $TUTOR_ENV_ROOT/env/dev/docker-compose.override.yml; then
       _log_msg 'Setting Tibe-Theme for Open edX lms and cms containers'
       tutor dev settheme tibetheme $(tutor config printvalue LMS_HOST):8000 $(tutor config printvalue CMS_HOST):8001
