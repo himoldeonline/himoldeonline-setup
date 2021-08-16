@@ -15,4 +15,9 @@ export _DIR=~/.himoldeonline && rm -rf $_DIR; mkdir -p $_DIR && \
 * validates environment and generates ssh-key for authentication against your github
 * downloads all repositories in himoldeonline to a pre-defined directory on your host
 * updates and installs system packages for running and or compiling the tools we use to manage the platform
+
+
+#### After installation, the command himolde is available for use with:
 * setting up docker images and containers using existing tools for Open edX and Craft CMS
+* starting/stopping containers associated with our platform
+* adding Nitro containers to the Tutor docker network
