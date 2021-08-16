@@ -45,7 +45,7 @@ _bind_mount_edx_platform_source_code () {
   __src=$OPENEDX_DEV_ROOT/tutor/env/dev
   __dst=$TUTOR_ENV_ROOT/tutor/env/dev
   mkdir -p $__dst
-  cp $__src/docker-compose.override.yaml $__dst/docker-compose.override.yaml
+  cp $__src/docker-compose.override.yml $__dst/docker-compose.override.yml
   # bind-mounting means we need to reinstall requirements
   sleep 2
   tutor dev run lms pip install --requirement requirements/edx/development.txt
