@@ -28,13 +28,13 @@ _install_nitro () {
     esac
   }
   _log_msg 'Finding cpu architecture'
-  checkPlatform || _log_tail_exit
+  checkPlatform || exit 1
 
   _log_msg 'Finding the latest nitro version'
   version=$(curl -s https://api.github.com/repos/craftcms/nitro/releases | grep -i -m 1 tag_name | head -1 | sed 's/\("tag_name": "\(.*\)",\)/\2/' | tr -d '[:space:]')
   if [ ! "$version" ]; then
     _log_msg 'Could not get the latest nitro version'
-    _log_tail_exit
+    exit 1
   fi
 
   function checkHash {
@@ -57,7 +57,7 @@ _install_nitro () {
       if [ "$4" != "$checkResultFileName" ]; then
         rm "$1"
         _log_msg "Checksums do not checkout for $filePath"
-        _log_tail_exit
+        exit 1
       fi
     fi
   }
@@ -70,22 +70,23 @@ _install_nitro () {
   targetZipFile="$targetTempFolder/$fileName"
 
   _log_msg "Downloading package $packageUrl to $targetZipFile"
-  curl -sSL "$packageUrl" --output "$targetZipFile" || _log_tail_exit
+  curl -sSL "$packageUrl" --output "$targetZipFile" || exit 1
 
   _log_msg "Extracting $targetZipFile downloaded nitro tarball to $targetTempFolder"
-  tar xzf "$targetZipFile" -C "$targetTempFolder" || _log_tail_exit
+  tar xzf "$targetZipFile" -C "$targetTempFolder" || exit 1
 
   _log_msg 'Running checksum to validate integrity of downloaded files'
-  checkHash "$targetZipFile" "$version" "$targetTempFolder" "$fileName" || _log_tail_exit
+  checkHash "$targetZipFile" "$version" "$targetTempFolder" "$fileName" || exit 1
 
   _log_msg 'Make nitro it executable'
-  chmod +x "$targetTempFolder/nitro" || _log_tail_exit
+  chmod +x "$targetTempFolder/nitro" || exit 1
 
   _log_msg 'Moving nitro executable to final location'
-  sudo mv "$targetTempFolder/nitro" "/usr/local/bin/nitro" || _log_tail_exit
+  sudo mv "$targetTempFolder/nitro" "/usr/local/bin/nitro" || exit 1
 
   _log_msg "Removing $targetTempFolder"
   rm -rf "$targetTempFolder"
+  echo 'Done'
 }
 
 
