@@ -38,7 +38,7 @@ source ./setup/6_nitro.sh || _log_tail_exit
 _log_remove
 
 
-_header 'Overview of cloned Directorires'
+_header 'Overview: Directorires'
 echo -e "\e[1;89mRepository:\n\e[1;32mOpen edX Source Code\e[1;94m -> \e[3;91m$EDX_PLATFORM_ROOT/\e[0m\n"
 echo -e "\e[1;89mRepository:\n\e[1;32mChanges we make to Open edX\e[1;94m -> \e[3;91m$OPENEDX_DEV_ROOT/\e[0m\n"
 echo -e "\e[1;89mRepository:\n\e[1;32mTibe Theme for Open edX\e[1;94m -> \e[3;91m$TIBE_THEME_ROOT/\e[0m\n"
