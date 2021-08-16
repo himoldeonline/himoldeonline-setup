@@ -52,6 +52,8 @@ _mainloop () {
     "12. Run composer for $WEB_PORTAL_ROOT" \
     "13. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
     "14. Bind-mount $EDX_PLATFORM_ROOT into the Open edX lms and cms containers" \
+    "15. Add $_HOST_DEV_WEB_PORTAL to docker network: tutor_dev_default" \
+    "16. Remove $_HOST_DEV_WEB_PORTAL to docker network: tutor_dev_default" \
     '0. Exit'
 
   read _choice
@@ -65,7 +67,6 @@ _mainloop () {
     _log_msg 'Starting HiMoldeonline Containers'
     tutor dev start --detach && sleep 2 &&
     nitro start && sleep 2 &&
-    docker network connect tutor_dev_default $_HOST_DEV_WEB_PORTAL &&
     _log_msg 'OK'
 
   elif [[ $_choice == '2' ]]; then
@@ -137,6 +138,14 @@ _mainloop () {
   elif [[ $_choice == '8' ]]; then
     _log_msg 'Creating admin user for Open edX'
     _create_open_edx_admin
+   
+  elif [[ $_choice == '15' ]]; then
+    _log_msg "Adding  $_HOST_DEV_WEB_PORTAL to docker network: tutor_dev_default"
+    docker network connect tutor_dev_default $_HOST_DEV_WEB_PORTAL
+   
+  elif [[ $_choice == '16' ]]; then
+    _log_msg "Adding  $_HOST_DEV_WEB_PORTAL to docker network: tutor_dev_default"
+    docker network disconnect tutor_dev_default $_HOST_DEV_WEB_PORTAL
   fi
 }
 while [[ true ]]; do _mainloop; done
