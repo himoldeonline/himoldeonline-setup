@@ -28,11 +28,11 @@ source ./setup/3_github.sh || _log_tail_exit
 _header 'Cloning Repositories'
 source ./setup/4_clone.sh || _log_tail_exit
 
-_header 'Installing Open edX'
-source ./setup/5_tutor.sh || _log_tail_exit
-
-_header 'Installing Nitro'
-source ./setup/6_nitro.sh || _log_tail_exit
+# _header 'Installing Open edX'
+# source ./setup/5_tutor.sh || _log_tail_exit
+#
+# _header 'Installing Nitro'
+# source ./setup/6_nitro.sh || _log_tail_exit
 
 # if script makes it to this point indicationg everything went through
 _log_remove

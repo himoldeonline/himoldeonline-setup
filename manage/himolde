@@ -18,6 +18,7 @@
 #~~~~~~~~~~#~~~~~~~~~~#
 
 export _LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/lib
+export _HIMOLDE_LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/manage/lib
 source $_LIB_DIR/display.sh || exit 1
 source $_LIB_DIR/validate.sh || exit 1
 source $_LIB_DIR/system.sh || exit 1
@@ -25,19 +26,14 @@ source $_LIB_DIR/paths.sh || exit 1
 source $_LIB_DIR/repositories.sh || exit 1
 source $_LIB_DIR/log.sh || exit 1
 source $_LIB_DIR/hostnames.sh || exit 1
+source $_HIMOLDE_LIB_DIR/tutor.sh || exit 1
+source $_HIMOLDE_LIB_DIR/nitro.sh || exit 1
 
 
 ### Start ##################
 clear
 _log_init 'manage.log' "$HOME/himoldeonline/logs"
 _banner '### Manage Script for HiMolde-Online Developement Environment ###'
-
-_validate_install () {
-  _has_command tutor || exit 127
-  _has_command nitro || exit 127
-  return 0
-}
-_validate_install
 
 
 _mainloop () {
@@ -47,13 +43,22 @@ _mainloop () {
     '3. List Running Containers'  \
     '4. Read logfile'  \
     '5. Clean up logfile'  \
-    "6. Add page $WEB_PORTAL_ROOT to nitro"  \
-    "7. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
+    "6. Install Tutor"  \
+    "7. Install Open edX" \
+    "8. Create admin user for Open edX" \
+    '9. Install Nitro'  \
+    '10. initialization of Nitro'  \
+    "11. Add page $WEB_PORTAL_ROOT to nitro"  \
+    "12. Fix write permission for PHP in $WEB_PORTAL_ROOT/" \
+    "13. Run composer for $WEB_PORTAL_ROOT"  \
     '0. Exit'
+
   read _choice
+
   if [[ $_choice == '0' ]]; then
     _banner '# Exit HiMoldeonline #'
     exit 0
+
   elif [[ $_choice == '1' ]]; then
     _banner '# Starting Containers #'
     _log_msg 'Starting HiMoldeonline Containers'
@@ -61,12 +66,14 @@ _mainloop () {
     nitro start && sleep 2 &&
     docker network connect tutor_dev_default $_HOST_DEV_WEB_PORTAL &&
     _log_msg 'OK'
+
   elif [[ $_choice == '2' ]]; then
     _banner '# Stopping Containers #'
     _log_msg 'Stopping HiMoldeonline Containers'
     nitro stop && sleep 2 &&
     tutor dev stop && sleep 2 &&
     _log_msg 'OK'
+
   elif [[ $_choice == '3' ]]; then
     if ! eval "docker ps | grep -q nitro" && ! eval "docker ps | grep -q tutor_"
     then
@@ -74,26 +81,57 @@ _mainloop () {
     else
       docker ps --filter 'name=tutor_dev' --filter 'name=nitro'
     fi
+
   elif [[ $_choice == '4' ]]; then
     _log_tail
+
   elif [[ $_choice == '5' ]]; then
     _log_remove
-  elif [[ $_choice == '6' ]]; then
-    export __cwd=$(pwd)
-    cd $WEB_PORTAL_ROOT
+
+  elif [[ $_choice == '11' ]]; then
     _log_msg 'Adding our Craft CMS platform Portal'
     echo "Make sure to type yes to all and name the database 'portal'"
-    nitro add
-    cp ./.env.example ./env
-    cd $__cwd
-    unset __cwd
-  elif [[ $_choice == '7' ]]; then
+    _nitro_add_himoldeonline_portal
+
+  elif [[ $_choice == '12' ]]; then
     export __cwd=$(pwd)
     cd $WEB_PORTAL_ROOT
     _log_msg "Running $WEB_PORTAL_ROOT/fix_perm.sh"
     source $WEB_PORTAL_ROOT/fix_perm.sh && echo 'Done'
     cd $__cwd
     unset __cwd
+
+  elif [[ $_choice == '9' ]]; then
+    if _is_command nitro; then
+      echo 'Nitro is alread installed'
+    elif ! _is_command nitro; then
+      _log_msg 'Installing Nitro'
+      echo "Nitro"
+      _install_nitro
+    fi
+
+  elif [[ $_choice == '10' ]]; then
+    _log_msg 'initialization of Nitro'
+    _nitro_init_environment
+
+  elif [[ $_choice == '13' ]]; then
+    _log_msg "Running composer inside $WEB_PORTAL_ROOT"
+    _nitro_portal_composer_install
+
+  elif [[ $_choice == '6' ]]; then
+    _install_tutor
+
+  elif [[ $_choice == '7' ]]; then
+    if ! _is_command tutor; then
+      echo 'Install Tutor first'
+    elif _is_command tutor; then
+    _log_msg 'Installing Open edX'
+    _install_open_edx
+    fi
+    
+  elif [[ $_choice == '8' ]]; then
+    _log_msg 'Creating admin user for Open edX'
+    _create_open_edx_admin
   fi
 }
 while [[ true ]]; do _mainloop; done
