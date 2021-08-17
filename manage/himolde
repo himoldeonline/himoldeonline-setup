@@ -156,8 +156,8 @@ _mainloop () {
       _log_msg 'Setting Tibe-Theme for Open edX lms and cms containers'
       tutor dev settheme tibetheme $(tutor config printvalue LMS_HOST):8000 $(tutor config printvalue CMS_HOST):8001
     fi
-    
-  elif [[ $_choice == '17' ]]; then
+
+  elif [[ $_choice == '18' ]]; then
     cd $SETUP_ROOT
     git pull
     cd ~/
