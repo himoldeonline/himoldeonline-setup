@@ -164,7 +164,8 @@ _mainloop () {
     exit
 
   elif [[ $_choice == '19' ]]; then
-    code $WEB_PORTAL_ROOT
+    cd $WEB_PORTAL_ROOT
+    code .
 
   fi
 }
