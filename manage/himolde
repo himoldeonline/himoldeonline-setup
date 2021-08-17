@@ -39,6 +39,7 @@ _banner '### Manage Script for HiMolde-Online Developement Environment ###'
 _mainloop () {
   _list_options \
     '1. Start HiMoldeonline Containers' \
+    'Hi Bro!' \
     '2. Stop HiMoldeonline Containers' \
     '3. List Running Containers' \
     '4. Read logfile' \
