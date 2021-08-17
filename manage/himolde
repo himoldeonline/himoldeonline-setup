@@ -166,6 +166,7 @@ _mainloop () {
   elif [[ $_choice == '19' ]]; then
     cd $WEB_PORTAL_ROOT
     code .
+    cd $HOME
 
   fi
 }
