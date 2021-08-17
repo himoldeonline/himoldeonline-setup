@@ -56,6 +56,7 @@ _mainloop () {
     "16. Remove $_HOST_DEV_WEB_PORTAL from docker network: tutor_dev_default" \
     "17. Set Tibe-Theme as Open edX theme for Open edX containers" \
     '18. Update this script' \
+    '19. Open himoldeonline-portal in VS-Code' \
     '0. Exit'
 
   read _choice
@@ -161,6 +162,10 @@ _mainloop () {
     cd $SETUP_ROOT
     git pull
     exit
+
+  elif [[ $_choice == '19' ]]; then
+    code $WEB_PORTAL_ROOT
+
   fi
 }
 while [[ true ]]; do _mainloop; done
