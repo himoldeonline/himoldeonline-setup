@@ -81,6 +81,7 @@ _get_xblock_sdk () {
   _info_installation "Installing XBlock SDK"
   _install_packages 'xblock_sdk'
 }
+# _get_xblock_sdk
 
 
 _log_msg 'END 2_installation.sh'
