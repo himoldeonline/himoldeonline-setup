@@ -41,9 +41,12 @@ if ! _in_group docker; then
   _add_user_to_group $USER docker &>> $_LOG_FILE || _log_tail_exit
 fi
 
+
 # OS-independent installations
 
-# installing the caller for the himoldeonline manage script for making some tasks easy
+python3 -m pip install --upgrade pip  &>> $_LOG_FILE
+
+# installing the caller for the himoldeonline manage script for managing our dev-environment
 if ! _has_command himolde; then
   _log_msg 'Install the himolde caller script'
   mkdir -p ~/.local/bin
@@ -51,40 +54,6 @@ if ! _has_command himolde; then
   _log_msg 'Running chmod +x on ~/.local/bin/himolde'
   chmod +x ~/.local/bin/himolde || _log_tail_exit
 fi
-
-# _get_pyenv () {
-#   # if pyenv is installed and python is installed, jump out of function
-#   if _has_command pyenv; then
-#       if _has_command python; then return 0; fi
-#   fi
-#
-#   if ! _has_command pyenv; then
-#     PYTHON_VERSION="3.9.6"
-#     _yes_or_no "Do you want to install Pyenv with Python $PYTHON_VERSION [Optional]" || eval '_info_ok "skipping" && return 0'
-#
-#     _log_msg "Installing pyenv and $PYTHON_VERSION"
-#     _install_packages 'pyenv'
-#     _info_installation "Installing pyenv and python $PYTHON_VERSION"
-#     eval "curl https://pyenv.run/ | bash" &>> $_LOG_FILE || _log_tail_exit
-#
-#     # after install, if not call-able from $PATH
-#     if ! _has_command pyenv; then
-#       _append_to_profile 'export PATH="$HOME/.pyenv/bin:$PATH"'
-#       export PATH="$HOME/.pyenv/bin:$PATH"
-#     fi
-#     _append_to_profile 'eval "$(pyenv init -)"'
-#     _append_to_profile 'eval "$(pyenv virtualenv-init -)"'
-#
-#     eval "$(pyenv init -)"
-#     eval "$(pyenv virtualenv-init -)"
-#     pyenv install -v $PYTHON_VERSION &>> $_LOG_FILE || _log_tail_exit
-#     pyenv global $PYTHON_VERSION &>> $_LOG_FILE || _log_tail_exit
-#     _info_ok 'ok'
-#   fi
-#
-#
-# }
-# _get_pyenv
 
 
 _get_docker_compose () {

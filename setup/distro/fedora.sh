@@ -21,7 +21,6 @@ TUTOR_DEPENDENCIES=(
 _update () {
 	_info_installation "Updating System"
   sudo dnf update -y &>> $_LOG_FILE
-  python3 -m pip install --upgrade pip  &>> $_LOG_FILE
   _info_ok "ok"
 }
 
