@@ -2,7 +2,7 @@
 
 _is_root () {
   _UID=$(id -u)
-  if [ $_UID -ne '0' ]; then
+  if [[ $_UID -ne '0' ]]; then
      return 1 # not root
   fi
   return 0 # is root
@@ -122,7 +122,7 @@ _check_path () {
 _is_command () {
   # example usage: _is_command tutor && echo 'tutor exist'|| echo 'tutor does not exist'
   # returns: 0 command exist, 1 command does not exist
-  if [ -x "$(command -v $1)" ]; then return 0; else return 1; fi
+  if [[ -x "$(command -v $1)" ]]; then return 0; else return 1; fi
 }
 
 _in_group () {
