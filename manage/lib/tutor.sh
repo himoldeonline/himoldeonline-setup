@@ -24,8 +24,15 @@ _install_tutor () {
 }
 
 _install_open_edx () {
+  __get_back_=$(_get_time_of_day_plus_x_minutes 30)
+  echo 'This might take up to 30 minutes to complete..'
+  echo "I suggest you go grab some coffee and come back at $__get_back_"
+
+  echo 'Command: tutor local quickstart'
   tutor local quickstart && sleep 10
+  echo 'Command: tutor local stop'
   tutor local stop && sleep 10
+  echo 'Command: tutor images build openedx-dev'
   tutor images build openedx-dev
 }
 
@@ -48,12 +55,12 @@ _bind_mount_edx_platform_source_code () {
   tutor dev stop && sleep 5
   # docker-compose.yml describes the bind-mount rules
   cp $__src/docker-compose.override.yml $__dst/docker-compose.override.yml
+
   # bind-mounting the source directory means we need to reinstall requirements
-  sleep 2
   tutor dev run lms pip install --requirement requirements/edx/development.txt
-  sleep 2
+  sleep 5
   tutor dev run lms npm install
-  sleep 2
+  sleep 5
   tutor dev run lms openedx-assets build --env=dev
-  sleep 2
+  sleep 5
 }

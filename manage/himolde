@@ -19,7 +19,7 @@
 
 export _LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/lib
 export _MANAGE_LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/manage/lib
-source $_LIB_DIR/display.sh || exit 1
+source $_MANAGE_LIB_DIR/display.sh || exit 1
 source $_LIB_DIR/validate.sh || exit 1
 source $_LIB_DIR/system.sh || exit 1
 source $_LIB_DIR/paths.sh || exit 1
@@ -28,6 +28,7 @@ source $_LIB_DIR/log.sh || exit 1
 source $_LIB_DIR/hostnames.sh || exit 1
 source $_MANAGE_LIB_DIR/tutor.sh || exit 1
 source $_MANAGE_LIB_DIR/nitro.sh || exit 1
+source $_LIB_DIR/time.sh || exit 1
 
 
 ### Start ##################
@@ -37,6 +38,8 @@ _banner '### Manage Script for HiMolde-Online Developement Environment ###'
 
 
 _mainloop () {
+  echo 'Press Enter to continue'; read; clear
+  echo 'Type in any number and press enter'
   _list_options \
     '1. Start HiMoldeonline Containers' \
     '2. Stop HiMoldeonline Containers' \
@@ -57,6 +60,8 @@ _mainloop () {
     "17. Set Tibe-Theme as Open edX theme for Open edX containers" \
     '18. Update this script' \
     '19. Open himoldeonline-portal in VS-Code' \
+    '20. Update Nitro' \
+    '21. Print out Nitro Environment Info' \
     '0. Exit'
 
   read _choice
@@ -165,16 +170,24 @@ _mainloop () {
 
   elif [[ $_choice == '19' ]]; then
     if ! _is_command code; then
-      echo 'Can`t open VS-Code'
-      echo 'Fix this by opening VS-Code'
+      echo 'Could not find VS-Code in $PATH'
+      echo 'The reason might be because you are on macOS'
+      echo 'This can be fixed by opening VS-Code'
       echo 'Then open the Command Palette (View -> Command Palette)'
       echo 'Type shell command to find Shell Command: Install 'code' command in PATH command'
       echo 'Then re-try this option'
+      echo -e 'You can read more about this here\nhttps://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line'
     else
       cd $WEB_PORTAL_ROOT
       code .
       cd $HOME
     fi
+
+  elif [[ $_choice == '20' ]]; then
+    nitro self-update
+
+  elif [[ $_choice == '21' ]]; then
+    nitro context
 
   fi
 }
