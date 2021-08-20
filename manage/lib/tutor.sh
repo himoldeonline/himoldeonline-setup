@@ -56,6 +56,10 @@ _bind_mount_edx_platform_source_code () {
   # docker-compose.yml describes the bind-mount rules
   cp $__src/docker-compose.override.yml $__dst/docker-compose.override.yml
 
+  __get_back_=$(_get_time_of_day_plus_x_minutes 5)
+  echo 'This might take up to 5 minutes to complete..'
+  echo "Estimated time for completion $__get_back_"
+
   # bind-mounting the source directory means we need to reinstall requirements
   tutor dev run lms pip install --requirement requirements/edx/development.txt
   sleep 5
