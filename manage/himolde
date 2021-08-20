@@ -34,11 +34,11 @@ source $_LIB_DIR/time.sh || exit 1
 ### Start ##################
 clear
 _log_init 'manage.log' "$HOME/himoldeonline/logs"
-_banner '### Manage Script for HiMolde-Online Developement Environment ###'
+
 
 
 _mainloop () {
-  echo 'Press Enter to continue'; read; clear
+  _banner '### Manage Script for HiMolde-Online Developement Environment ###'
   echo 'Type in any number and press enter'
   _list_options \
     '1. Start HiMoldeonline Containers' \
@@ -64,11 +64,11 @@ _mainloop () {
     '21. Print out Nitro Environment Info' \
     '0. Exit'
 
+  printf 'Number: '
   read _choice
 
   if [[ $_choice == '0' ]]; then
-    _banner '# Exit HiMoldeonline #'
-    exit 0
+    clear; exit 0
 
   elif [[ $_choice == '1' ]]; then
     _banner '# Starting Containers #'
@@ -190,5 +190,6 @@ _mainloop () {
     nitro context
 
   fi
+  echo -e '\nPress Enter to continue' && read
 }
 while [[ true ]]; do _mainloop; done

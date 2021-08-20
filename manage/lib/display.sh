@@ -2,7 +2,7 @@
 
 _banner () {
   # 1st arg: title message "inside double qoutes"
-  sleep 0.5 && clear
+  sleep 0.1 && clear
   echo -e "$1"
 }
 
