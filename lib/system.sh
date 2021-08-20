@@ -43,7 +43,13 @@ _remove_user_from_group () {
   # remove user to a group
   # 1st arg: group-name
   # 2nd arg: username
-  sudo gpasswd -d $2 $1
+  if command -v gpasswd &> /dev/null; then
+    sudo gpasswd -d $2 $1 && return 0
+  elif command -v dseditgroup &> /dev/null; then
+    sudo dseditgroup -o edit -a $2 -t user $1 && return 0
+  elif command -v dscl &> /dev/null; then
+    sudo dscl . append /Groups/$1 GroupMembership $2 && return 0
+  fi
 }
 
 _add_service () {
