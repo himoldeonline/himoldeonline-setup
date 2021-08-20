@@ -6,7 +6,7 @@ _clone_git_repository () {
   # 1st arg: URL
   # 2nd arg: DIR
   _info_cloning "$1 -> \e[0;91m$2/\e[0m"
-    ssh-agent sh -c "ssh-add $SSH_KEY; git clone $1 $2" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  ssh-agent sh -c "ssh-add $SSH_KEY; git clone $1 $2" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 }
 
 _checkout_tags () {

@@ -8,6 +8,10 @@ _get_python () {
   brew install python
 }
 
+_get_tutor_dependencies () {
+  brew install libyaml
+}
+
 _get_docker () {
   brew cask install docker;
 }

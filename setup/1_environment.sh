@@ -2,31 +2,47 @@
 
 _log_msg 'START 1_environment.sh'
 
+_info_validation 'Platform'
+_PLATFORM=$(uname)
+if [[ $_PLATFORM == Linux ]]; then
+  export _PLATFORM && _info_ok $_PLATFORM
 
-DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
+  # supported linux distro = extra functionality
+  _info_validation  "Linux Distribution"
 
-_info_validation  "Distro is either Debian, Fedora or Ubuntu"
-  _distro_supported && _info_ok $DISTRO || _abort "You are not running a supported distribution of Linux"
+  _DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
+  if [[ $_DISTRO == *Fedora* ]]; then _DISTRO=fedora
+  elif [[ $_DISTRO == *Debian* ]]; then _DISTRO=debian
+  elif [[ $_DISTRO == *Ubuntu* ]]; then _DISTRO=ubuntu
+  else
+    _PLATFORM_SUPPORTED=false
+    _info_error "$_DISTRO is not supported"; exit 1
+  fi
+  _info_ok $_DISTRO
 
+elif [[ $_PLATFORM == Darwin ]]; then
+  export _PLATFORM && _info_ok 'MacOS'
+
+  _info_validation  "MacOS Codename"
+  _MACOS_CODENAME=$(awk '/SOFTWARE LICENSE AGREEMENT FOR OS X/' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'OS X ' '{print $NF}' | awk '{print substr($0, 0, length($0)-1)}')
+  _info_ok "$_MACOS_CODENAME"
+
+else
+  _info_error "Your platform is not supported"; exit 1
+
+fi
+
+
+
+
+# run as user
 _info_validation  "Script is not run as root"
   _is_root && _abort 'Script must NOT be run as root or with root privileges' || _info_ok "yes"
 
+# root access
 _info_validation; sudo -v && _info_ok "ok" || exit 1
 
-  _ROPOSITORIES=(
-    $REPO_TUTOR $REPO_TIBETHEME $REPO_OPENEDX_DEV $REPO_INSTRUCTION $REPO_OPENEDX_PLATFORM
-  )
-  for repo in "${_ROPOSITORIES[@]}"; do
-    _info_validation  "\e[0;91m$DEV_ROOT/\e[0m does not exist or is empty"
-    if _dir_exist $repo; then
-      if ! _dir_empty $repo; then
-        _sub_info "Directory is not empty and will be removed"
-        _continue && _sub_info "Removing $repo" \
-         && rm -rf $repo  || _log_error "Could not delete $repo"
-      fi
-    fi
-    _info_ok
-  done
+
 
 _info_validation "Check default shell"
 _has_profiles && _info_ok $SHELL_TYPE || _abort 'Could not find any shell profile'
@@ -36,10 +52,10 @@ if _running_wsl; then
    _info_ok "yes"
   _info_validation  "Checking if Docker Desktop is running"
   if ! _service_running docker; then
-    M1='Could not communicate with Docker\nMake sure to go to:'
-    M2='\nhttps://docs.docker.com/docker-for-windows/install/'
-    M3='\n..in your Windows host and download, install and run docker\n..then try again'
-    _abort "$M1 $M2 $M3"
+    echo -e 'Could not communicate with Docker\nGo to:'
+    echo 'https://docs.docker.com/docker-for-windows/install/'
+    echo 'and download, install and run docker\n..then try again'
+    exit 1
   fi
    _info_ok "yes"
  else
