@@ -6,9 +6,12 @@ to work with the web-platform without having to know the intricate details of ma
 
 <p>
 If you installed the himoldeonline developement platform using the start.sh script in the root directory<br>
-of this repository, the command "himolde" should be accessible.<br>
+of this repository, the command "himolde" should be accessible<br>
 The himolde command is stored as ~/.local/bin/himolde<br>
-The command sources the script himolde in this directory.<br>
+The command sources the script himolde in this directory
+</p>
+
+<p>
 If you do not have the himolde command, paste the whole command block below into your shell to create it<br>
 </p>
 * For the below command block to work, you need to be authenticated to Github with an SSH-key
