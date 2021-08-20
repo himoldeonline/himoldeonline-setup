@@ -1,4 +1,8 @@
-## This directory holds all the functionality to the script "himolde"
+## This directory holds all the functionality to the command "himolde"
+<p>
+The himolde command is a management tool created to make it easier for devs at himoldeonline<br>
+to work with the web-platform without having to know the intricate details of managing containers etc.<br
+</p>
 
 <p>
 If you installed the himoldeonline developement platform using the start.sh script in the root directory<br>
