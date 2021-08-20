@@ -8,6 +8,7 @@ The command sources the script himolde in this directory.<br>
 If you do not have the himolde command, paste the whole command block below into your shell to create it<br>
 </p>
 * For the below command block to work, you need to be authenticated to Github with an SSH-key
+
 ```bash
 mkdir -p ~/.local/bin
 cat <<EOF > ~/.local/bin/himolde
