@@ -28,40 +28,40 @@ _update () {
 
 _install_packages () {
 	if [[ $1 == 'base' ]]; then
-    PACKAGES=("${BASE_DEPENDENCIES[@]}")
-  elif [[ $1 == 'tutor' ]]; then
-    PACKAGES=("${TUTOR_DEPENDENCIES[@]}")
-  elif [[ $1 == 'pyenv' ]]; then
-    PACKAGES=("${PYENV_DEPENDENCIES[@]}")
-  elif [[ $1 == 'xblock_sdk' ]]; then
-    PACKAGES=("${XBLOCK_SDK_DEPENDENCIES[@]}")
-  fi
+	  PACKAGES=("${BASE_DEPENDENCIES[@]}")
+	elif [[ $1 == 'tutor' ]]; then
+	  PACKAGES=("${TUTOR_DEPENDENCIES[@]}")
+	elif [[ $1 == 'pyenv' ]]; then
+	  PACKAGES=("${PYENV_DEPENDENCIES[@]}")
+	elif [[ $1 == 'xblock_sdk' ]]; then
+	  PACKAGES=("${XBLOCK_SDK_DEPENDENCIES[@]}")
+	fi
 
 	for i in "${PACKAGES[@]}"; do
 		dpkg -s $i &>> $_LOG_FILE
-    if [[  $? -eq "1" ]]; then
-      PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
-    fi
+	  if [[  $? -eq "1" ]]; then
+	    PACKAGES_TO_BE_INSTALLED=(${PACKAGES_TO_BE_INSTALLED[@]} "$i")
+	  fi
 	done
 	unset PACKAGES
 
-  if [[  ${#PACKAGES_TO_BE_INSTALLED[@]} -eq 0 ]]; then
+	if [[  ${#PACKAGES_TO_BE_INSTALLED[@]} -eq 0 ]]; then
 		_log_msg "All packages already installed for $1"
-    return 0
-  fi
+	  return 0
+	fi
 
 	_info_installation "The following $1 packages/dependencies will be installed:\n"
-  for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
-  do
-    echo -e "\t\t\t$i"
-  done
-  _continue "\t\t"
-  for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
-  do
+	for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
+	do
+	  echo -e "\t\t\t$i"
+	done
+	_continue "\t\t"
+	for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
+	do
 		_info_installation $i
-    sudo apt-get install -y $i &>> $_LOG_FILE || _log_tail_exit
-    _info_ok "ok"
-  done
+	  sudo apt-get install -y $i &>> $_LOG_FILE || _log_tail_exit
+	  _info_ok "ok"
+	done
 	unset PACKAGES_TO_BE_INSTALLED
 }
 
