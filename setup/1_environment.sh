@@ -24,8 +24,10 @@ elif [[ $_PLATFORM == Darwin ]]; then
   export _PLATFORM && _info_ok 'MacOS'
 
   _info_validation  "MacOS Codename"
-  _MACOS_CODENAME=$(awk '/SOFTWARE LICENSE AGREEMENT FOR OS X/' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'OS X ' '{print $NF}' | awk '{print substr($0, 0, length($0)-1)}')
-  _info_ok "$_MACOS_CODENAME"
+  A='/SOFTWARE LICENSE AGREEMENT FOR OS X/'
+  B='/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf'
+  _MACOS_CODENAME=$(awk "$A" "$B"  | awk -F 'OS X ' '{print $NF}' | awk '{print substr($0, 0, length($0)-1)}')
+  unset A && unset B && _info_ok "$_MACOS_CODENAME"
 
 else
   _info_error "Your platform is not supported"; exit 1
