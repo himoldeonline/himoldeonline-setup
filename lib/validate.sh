@@ -137,15 +137,6 @@ _print_ssh_pub () {
   echo -e '\n---ssh-pub-key---\n'
 }
 
-_distro_supported () {
-  DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
-  if [[ $DISTRO == *Fedora* ]]; then return 0
-  elif [[ $DISTRO == *Debian* ]]; then return 0
-  elif [[ $DISTRO == *Ubuntu* ]]; then return 0
-  else return 1; fi
-
-}
-
 _has_command() {
   if command -v $1 &> /dev/null
   then return 0
