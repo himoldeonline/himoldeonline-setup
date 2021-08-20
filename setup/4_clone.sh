@@ -6,14 +6,23 @@ _clone_git_repository () {
   # 1st arg: URL
   # 2nd arg: DIR
   _info_cloning "$1 -> \e[0;91m$2/\e[0m"
-  ssh-agent sh -c "ssh-add $SSH_KEY; git clone $1 $2" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  if _service_running ssh-agent; then
+    ssh-agent sh -c "ssh-add $SSH_KEY; git clone $1 $2" &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  else
+    git clone $1 $2 &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
+  fi
 }
 
 _checkout_tags () {
   # 1st arg: DIR
   # 2nd arg: TAG
   _info_checkout "Fetching all tags in \e[0;91m$1/\e[0m and checking out $2"
-  cd $1 && ssh-agent sh -c "ssh-add $SSH_KEY; git fetch --all --tags"  &>> $_LOG_FILE || _log_tail_exit
+  cd $1 || _log_tail_exit
+  if _service_running ssh-agent; then
+    ssh-agent sh -c "ssh-add $SSH_KEY; git fetch --all --tags"  &>> $_LOG_FILE || _log_tail_exit
+  else
+    git fetch --all --tags  &>> $_LOG_FILE || _log_tail_exit
+  fi
   cd $1 && git checkout $2  &>> $_LOG_FILE && _info_ok 'ok' || _log_tail_exit
 }
 
