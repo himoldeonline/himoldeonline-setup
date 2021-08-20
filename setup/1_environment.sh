@@ -49,7 +49,7 @@ _info_validation; sudo -v && _info_ok "ok" || exit 1
 _info_validation "Check default shell"
 _has_profiles && _info_ok $SHELL_TYPE || _abort 'Could not find any shell profile'
 
-_info_validation  "Running inside Windows Subsystem for Linux"
+_info_validation  "Running Windows Subsystem for Linux"
 if _running_wsl; then
    _info_ok "yes"
   _info_validation  "Checking if Docker Desktop is running"

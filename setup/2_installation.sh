@@ -9,7 +9,7 @@ __mac_installations () {
   # homebrew
   if ! _has_command brew; then
     _log_msg 'Installing Homebrew'
-    _get_homebrew
+    _get_homebrew && echo 'Press Enter'; read
   fi
 
   _log_msg 'Installing Tutor Dependencies'
@@ -27,8 +27,6 @@ __mac_installations () {
     _get_docker
   fi
 
-  # docker-compose
-  # if ! _has_command docker-compose; then _get_docker_compose; fi
 
 }
 
