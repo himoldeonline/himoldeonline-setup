@@ -62,11 +62,22 @@ _append_to_profile () {
   # sets path for shell profile in $SH_PROFILE
   # returns:
   # ..1 = no shell profile found
+
+  # if .zshrc exist
   if [[ -f ~/.zshrc ]]; then
-    echo -e $1 >> ~/.zshrc
+    cat ~/.zshrc | grep -q $1 || echo -e $1 >> ~/.zshrc
   fi
 
+  # if .bashrc exist
   if [[ -f ~/.bashrc ]]; then
-    echo -e $1 >> ~/.bashrc
+    cat ~/.bashrc | grep -q $1 || echo -e $1 >> ~/.bashrc
   fi
+
+  # alwyas wheter ~/.profile exist or not
+  if [[ ! -f ~/.profile ]]; then
+    echo -e $1 >> ~/.profile
+  else
+    cat ~/.profile | grep -q $1 || echo -e $1 >> ~/.profile
+  fi
+
 }

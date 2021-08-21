@@ -62,6 +62,7 @@ _mainloop () {
     '19. Open himoldeonline-portal in VS-Code' \
     '20. Update Nitro' \
     '21. Print out Nitro Environment Info' \
+    '22. Load SSH-Key to ssh-agent to fix: "Permission denied (publickey)."' \
     '0. Exit'
 
   printf 'Number: '
@@ -188,6 +189,10 @@ _mainloop () {
 
   elif [[ $_choice == '21' ]]; then
     nitro context
+
+  elif [[ $_choice == '22' ]]; then
+    _service_running ssh-agent || _is_command ssh-agent && eval "$(ssh-agent)"
+    _service_running ssh-agent && ssh-add $SSH_KEY || echo 'Could not start SSH-Agent'
 
   fi
   echo -e '\nPress Enter to continue' && read
