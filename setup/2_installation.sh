@@ -53,12 +53,10 @@ __linux_installations () {
     _log_msg 'Checking Docker Daemon'
     _info_validation  "Connection to Docker Daemon"
     # ..check if docker is running, enable and start docker if not
-    _service_running docker &>> $_LOG_FILE ||
-      # enable docker daemon if previous failed
-      _add_service docker &>> $_LOG_FILE ||
-      # exit if enabling docker daemon failed
-      _log_tail_exit
-
+    if ! _service_running docker; then
+      _log_msg 'Enable Docker Daemon'
+      _enable_service docker &>> $_LOG_FILE || _log_tail_exit
+    fi
     _info_ok 'ok'
   fi
 

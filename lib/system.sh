@@ -52,7 +52,7 @@ _remove_user_from_group () {
   fi
 }
 
-_add_service () {
+_enable_service () {
   # enables and starts a service
   # 1st arg: name-of-service
   sudo systemctl enable $1 && sudo systemctl start $1
