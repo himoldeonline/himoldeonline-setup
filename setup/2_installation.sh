@@ -68,7 +68,8 @@ __linux_installations () {
 }
 
 if [[ $_PLATFORM == Darwin ]]
-  then __mac_installations
+  then
+  __mac_installations
 elif [[ $_PLATFORM == Linux ]]
   then __linux_installations
 fi
@@ -78,10 +79,13 @@ fi
 
 # add a new directory if not already in $PATH
 echo $PATH | grep -q -w "$HOME/.local/bin" || _ADD_SHELL=true
-if [[ $_ADD_SHELL == true ]]; then
+
+if [[ $_ADD_SHELL == true ]]; then
   _log_msg 'Adding export PATH="$HOME/.local/bin:$PATH" to shell profile'
   _append_to_profile 'export PATH="$HOME/.local/bin:$PATH"' || _log_tail_exit
+  export PATH="$HOME/.local/bin:$PATH"
 fi
+
 
 # upgrade pip for python
 if ! _is_command python3; then echo 'Python3 is not installed'; exit 1; fi
@@ -103,7 +107,6 @@ _get_docker_compose () {
 
   _log_msg 'Installing Docker Compose'
   _info_installation "Installing Docker Compose"
-  _continue
   python3 -m pip install --upgrade pip >> $_LOG_FILE || _log_tail_exit
   pip3 install --user docker-compose >> $_LOG_FILE || _log_tail_exit
   _info_ok 'ok'
