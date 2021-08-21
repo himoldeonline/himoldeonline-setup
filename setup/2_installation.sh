@@ -73,10 +73,6 @@ if [[ $_PLATFORM == Darwin ]]; then
 elif [[ $_PLATFORM == Linux ]]; then
   __linux_installations
 
-  if ! _running_wsl; then
-
-  fi
-
 fi
 
 
