@@ -66,11 +66,17 @@ _append_to_profile () {
   # if .zshrc exist
   if [[ -f ~/.zshrc ]]; then
     cat ~/.zshrc | grep -q -w "$1" || echo -e $1 >> ~/.zshrc
+  else
+    # if .zshrc does not exist but default shell is zsh, then append
+    echo $SHELL | grep -q -w zsh && echo -e $1 >> ~/.zshrc
   fi
 
   # if .bashrc exist
   if [[ -f ~/.bashrc ]]; then
     cat ~/.bashrc | grep -q -w "$1" || echo -e $1 >> ~/.bashrc
+  else
+    # if .bashrc does not exist but default shell is bash, then append
+    echo $SHELL | grep -q -w bash && echo -e $1 >> ~/.bashrc
   fi
 
   # if ~/.profile exist
