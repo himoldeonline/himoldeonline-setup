@@ -22,5 +22,5 @@ _get_python () {
 }
 
 _get_docker () {
-  brew cask install docker
+  brew install docker
 }
