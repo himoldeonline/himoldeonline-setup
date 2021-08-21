@@ -70,8 +70,9 @@ fi
 
 # ..validate member of docker group before proceeding
 if ! _in_group docker; then
-  _log_msg 'Add user to docker group'
-  _add_user_to_group $USER docker &>> $_LOG_FILE || _log_tail_exit
+  _log_msg "Adding $USER to docker group"
+  echo "Adding $USER to the docker group"
+  _add_user_to_group $USER docker || _log_tail_exit
 fi
 
 
