@@ -27,7 +27,6 @@ __mac_installations () {
     _get_docker
   fi
 
-
 }
 
 __linux_installations () {
@@ -51,28 +50,33 @@ __linux_installations () {
       fi
 
     _log_msg 'Checking Docker Daemon'
-    _info_validation  "Connection to Docker Daemon"
-    # ..check if docker is running, enable and start docker if not
+    _info_validation  "Checking if Docker Daemon is running"
     if ! _service_running docker; then
       _log_msg 'Enable Docker Daemon'
       _enable_service docker || _log_tail_exit
     fi
     _info_ok 'ok'
+
+    _info_validation  "$USER is part of Docker group"
+    if ! _in_group docker; then
+      _log_msg "Adding $USER to docker group"
+      echo "Adding $USER to the docker group"
+      _add_user_to_group $USER docker || _log_tail_exit
+    fi
+    _info_ok 'ok'
   fi
-
-
 }
+
 if [[ $_PLATFORM == Darwin ]]; then
   __mac_installations
+
 elif [[ $_PLATFORM == Linux ]]; then
   __linux_installations
-fi
 
-# ..validate member of docker group before proceeding
-if ! _in_group docker; then
-  _log_msg "Adding $USER to docker group"
-  echo "Adding $USER to the docker group"
-  _add_user_to_group $USER docker || _log_tail_exit
+  if ! _running_wsl; then
+
+  fi
+
 fi
 
 
