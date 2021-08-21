@@ -5,7 +5,7 @@
 ```bash
 export _DIR=~/.himoldeonline && rm -rf $_DIR; mkdir -p $_DIR && \
   cd $_DIR && git clone https://github.com/himoldeonline/himoldeonline-setup.git && \
-  cd $_DIR/himoldeonline-setup && ./start.sh && cd ~/ && rm -rf $_DIR && unset _DIR
+  cd $_DIR/himoldeonline-setup && $SHELL ./start.sh && cd ~/ && rm -rf $_DIR && unset _DIR
 ```
 #### What does start.sh do?
 * validates your environment and generates an ssh-key for authentication against your github
