@@ -65,17 +65,17 @@ _append_to_profile () {
 
   # if .zshrc exist
   if [[ -f ~/.zshrc ]]; then
-    cat ~/.zshrc | grep -q "$1" || echo -e $1 >> ~/.zshrc
+    cat ~/.zshrc | grep -q -w "$1" || echo -e $1 >> ~/.zshrc
   fi
 
   # if .bashrc exist
   if [[ -f ~/.bashrc ]]; then
-    cat ~/.bashrc | grep -q "$1" || echo -e $1 >> ~/.bashrc
+    cat ~/.bashrc | grep -q -w "$1" || echo -e $1 >> ~/.bashrc
   fi
 
   # if ~/.profile exist
   if [[ -f ~/.profile ]]; then
-    cat ~/.profile | grep -q "$1" || echo -e $1 >> ~/.profile
+    cat ~/.profile | grep -q -w "$1" || echo -e $1 >> ~/.profile
   fi
 
 }

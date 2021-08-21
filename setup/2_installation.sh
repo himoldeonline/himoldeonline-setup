@@ -67,20 +67,21 @@ __linux_installations () {
   fi
 }
 
-if [[ $_PLATFORM == Darwin ]]; then
-  __mac_installations
-
-elif [[ $_PLATFORM == Linux ]]; then
-  __linux_installations
-
+if [[ $_PLATFORM == Darwin ]]
+  then __mac_installations
+elif [[ $_PLATFORM == Linux ]]
+  then __linux_installations
 fi
 
 
 # OS-independent installations
 
+# add a new directory if not already in $PATH
+echo $PATH | grep -q -w "$HOME/.local/bin" || _append_to_profile 'export PATH="$HOME/.local/bin:$PATH"'
+
 # upgrade pip for python
 if ! _is_command python3; then echo 'Python3 is not installed'; exit 1; fi
-python3 -m pip install --upgrade pip  &>> $_LOG_FILE
+python3 -m pip install --upgrade pip  >> $_LOG_FILE
 
 
 # installing the caller for the himoldeonline manage script for managing our dev-environment
@@ -92,7 +93,6 @@ if ! _has_command himolde; then
   chmod +x ~/.local/bin/himolde || _log_tail_exit
 fi
 
-
 _get_docker_compose () {
   # if docker-compose is installed, jump out of function
   if _has_command docker-compose; then return 0; fi
@@ -100,14 +100,11 @@ _get_docker_compose () {
   _log_msg 'Installing Docker Compose'
   _info_installation "Installing Docker Compose"
   _continue
-  python3 -m pip install --upgrade pip &>> $_LOG_FILE || _log_tail_exit
-  pip3 install --user docker-compose &>> $_LOG_FILE || _log_tail_exit
+  python3 -m pip install --upgrade pip >> $_LOG_FILE || _log_tail_exit
+  pip3 install --user docker-compose >> $_LOG_FILE || _log_tail_exit
   _info_ok 'ok'
   if _has_command docker-compose; then return 0; fi
 
-  # if docker-compose is not callable, add to profile and export path to executable to PATH
-  export PATH="$HOME/.local/bin:$PATH"
-  _append_to_profile 'export PATH="$HOME/.local/bin:$PATH"'
 }
 _get_docker_compose
 
