@@ -55,7 +55,7 @@ __linux_installations () {
     # ..check if docker is running, enable and start docker if not
     if ! _service_running docker; then
       _log_msg 'Enable Docker Daemon'
-      _enable_service docker &>> $_LOG_FILE || _log_tail_exit
+      _enable_service docker || _log_tail_exit
     fi
     _info_ok 'ok'
   fi
