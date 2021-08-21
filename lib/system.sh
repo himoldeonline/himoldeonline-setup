@@ -63,25 +63,48 @@ _append_to_profile () {
   # returns:
   # ..1 = no shell profile found
 
-  # if .zshrc exist
-  if [[ -f ~/.zshrc ]]; then
-    cat ~/.zshrc | grep -q -w "$1" || echo -e $1 >> ~/.zshrc
-  else
-    # if .zshrc does not exist but default shell is zsh, then append
-    echo $SHELL | grep -q -w zsh && echo -e $1 >> ~/.zshrc
-  fi
+  # macos does not follow the bash source convention, lets deal with that first
+  _system=$(uname)
+  if [[ $_system == Darwin ]]; then
+    if [[ $SHELL == /bin/bash ]]; then
+        if [[ -f ~/.bash_profile ]]; then
+          cat ~/.bash_profile | grep -q -w "$1" || echo -e $1 >> ~/.bash_profile && return 0
+        else
+          echo -e $1 >> ~/.bash_profile && return 0
+        fi
 
-  # if .bashrc exist
-  if [[ -f ~/.bashrc ]]; then
-    cat ~/.bashrc | grep -q -w "$1" || echo -e $1 >> ~/.bashrc
-  else
-    # if .bashrc does not exist but default shell is bash, then append
-    echo $SHELL | grep -q -w bash && echo -e $1 >> ~/.bashrc
-  fi
+    elif [[ $SHELL == /bin/zsh ]]; then
+      if [[ -f ~/.zprofile ]]; then
+        cat ~/.zprofile | grep -q -w "$1" || echo -e $1 >> ~/.zprofile && return 0
+      else
+        echo -e $1 >> ~/.zprofile && return 0
+      fi
+    fi
 
-  # if ~/.profile exist
-  if [[ -f ~/.profile ]]; then
-    cat ~/.profile | grep -q -w "$1" || echo -e $1 >> ~/.profile
+  elif [[ $_system == Linux ]]; then
+
+      # if .zshrc exist
+      if [[ -f ~/.zshrc ]]; then
+        cat ~/.zshrc | grep -q -w "$1" || echo -e $1 >> ~/.zshrc && return 0
+      else
+        # if .zshrc does not exist but default shell is zsh, then append
+        echo $SHELL | grep -q -w zsh && echo -e $1 >> ~/.zshrc && return 0
+      fi
+
+      # if .bashrc exist
+      if [[ -f ~/.bashrc ]]; then
+        cat ~/.bashrc | grep -q -w "$1" || echo -e $1 >> ~/.bashrc && return 0
+      else
+        # if .bashrc does not exist but default shell is bash, then append
+        echo $SHELL | grep -q -w bash && echo -e $1 >> ~/.bashrc && return 0
+      fi
+
+      # if ~/.profile exist
+      if [[ -f ~/.profile ]]; then
+        cat ~/.profile | grep -q -w "$1" || echo -e $1 >> ~/.profile && return 0
+      fi
+
   fi
+  return 1
 
 }

@@ -77,7 +77,11 @@ fi
 # OS-independent installations
 
 # add a new directory if not already in $PATH
-echo $PATH | grep -q -w "$HOME/.local/bin" || _append_to_profile 'export PATH="$HOME/.local/bin:$PATH"'
+echo $PATH | grep -q -w "$HOME/.local/bin" || _ADD_SHELL=true
+if [[ $_ADD_SHELL == true ]]; then
+  _log_msg 'Adding export PATH="$HOME/.local/bin:$PATH" to shell profile'
+  _append_to_profile 'export PATH="$HOME/.local/bin:$PATH"' || _log_tail_exit
+fi
 
 # upgrade pip for python
 if ! _is_command python3; then echo 'Python3 is not installed'; exit 1; fi
