@@ -38,7 +38,7 @@ fi
 
 
 # run as user
-_info_validation  "Script is not run as root"
+_info_validation "Script is not run as root"
   _is_root && _abort 'Script must NOT be run as root or with root privileges' || _info_ok "yes"
 
 # root access
@@ -49,10 +49,10 @@ _info_validation; sudo -v && _info_ok "ok" || exit 1
 _info_validation "Check default shell"
 _has_profiles && _info_ok $SHELL_TYPE || _abort 'Could not find any shell profile'
 
-_info_validation  "Running Windows Subsystem for Linux"
+_info_validation "Running Windows Subsystem for Linux"
 if _running_wsl; then
    _info_ok "yes"
-  _info_validation  "Checking if Docker Desktop is running"
+  _info_validation "Checking if Docker Desktop is running"
   if ! _service_running docker; then
     echo -e 'Could not communicate with Docker\nGo to:'
     echo 'https://docs.docker.com/docker-for-windows/install/'
