@@ -10,15 +10,15 @@ if [[ $_PLATFORM == Linux ]]; then
   # supported linux distro = extra functionality
   _info_validation  "Linux Distribution"
 
-  _DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
-  if [[ $_DISTRO == *Fedora* ]]; then _DISTRO=fedora
-  elif [[ $_DISTRO == *Debian* ]]; then _DISTRO=debian
-  elif [[ $_DISTRO == *Ubuntu* ]]; then _DISTRO=ubuntu
+  DISTRO=$(cat /etc/*-release | grep -w "NAME" | cut -c 6-)
+  if [[ $DISTRO == *Fedora* ]]; then DISTRO=fedora
+  elif [[ $DISTRO == *Debian* ]]; then DISTRO=debian
+  elif [[ $DISTRO == *Ubuntu* ]]; then DISTRO=ubuntu
   else
     _PLATFORM_SUPPORTED=false
-    _info_error "$_DISTRO is not supported"; exit 1
+    _info_error "$DISTRO is not supported"; exit 1
   fi
-  _info_ok $_DISTRO
+  _info_ok $DISTRO
 
 elif [[ $_PLATFORM == Darwin ]]; then
   export _PLATFORM && _info_ok 'MacOS'

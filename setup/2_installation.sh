@@ -4,6 +4,7 @@ _log_msg 'START 2_installation.sh'
 
 __mac_installations () {
 
+  _log_msg 'MacOS installation'
   source ./setup/os/macos.sh
 
   # homebrew
@@ -30,7 +31,7 @@ __mac_installations () {
 }
 
 __linux_installations () {
-
+  _log_msg 'Linux installation'
   source ./setup/os/$DISTRO.sh
 
   # OS-dependent installations sourced by getting correct path in os/<os>.sh
