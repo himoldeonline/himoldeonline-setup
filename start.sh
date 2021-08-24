@@ -34,9 +34,6 @@ source ./setup/4_clone.sh || _log_tail_exit
 # _header 'Installing Nitro'
 # source ./setup/6_nitro.sh || _log_tail_exit
 
-# if script makes it to this point indicationg everything went through
-_log_remove
-
 
 _header 'Overview: Directorires'
 echo -e "\e[1;89mRepository:\n\e[1;32mOpen edX Source Code\e[1;94m -> \e[3;91m$EDX_PLATFORM_ROOT/\e[0m\n"
