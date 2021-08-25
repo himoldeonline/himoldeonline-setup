@@ -19,6 +19,7 @@
 
 export _LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/lib
 export _MANAGE_LIB_DIR=~/himoldeonline/himoldeonline_setup_source/himoldeonline-setup/manage/lib
+export _PLATFORM=$(uname)
 source $_MANAGE_LIB_DIR/display.sh || exit 1
 source $_LIB_DIR/validate.sh || exit 1
 source $_LIB_DIR/system.sh || exit 1
@@ -63,6 +64,7 @@ _mainloop () {
     '20. Update Nitro' \
     '21. Print out Nitro Environment Info' \
     '22. Load SSH-Key to ssh-agent to fix: "Permission denied (publickey)."' \
+    "23. Open $_HOST_DEV_WEB_PORTAL in browser" \
     '0. Exit'
 
   printf 'Number: '
@@ -193,6 +195,18 @@ _mainloop () {
   elif [[ $_choice == '22' ]]; then
     _service_running ssh-agent || _is_command ssh-agent && eval "$(ssh-agent)"
     _service_running ssh-agent && ssh-add $SSH_KEY || echo 'Could not start SSH-Agent'
+
+  elif [[ $_choice == '23' ]]; then
+    _url=https://$_HOST_DEV_WEB_PORTAL/admin
+    if [[ $_PLATFORM == Linux ]]; then
+      if which xdg-open > /dev/null; then
+        xdg-open $_url
+      elif which gnome-open > /dev/null; then
+        gnome-open $_url
+      fi
+    elif [[ $_PLATFORM == Darwin ]]; then
+      open -a /Applications/Safari.app $_url
+    fi
 
   fi
   echo -e '\nPress Enter to continue' && read
