@@ -1,7 +1,7 @@
 ## Setup Tools for himoldeonline
 
-### Get up and running
-#### Run the below command 'click the upper right box to fetch command into clipboard' in your terminal to get started
+### Step 1. Get up and running
+#### Run the below command (click the upper right box to fetch command into clipboard) in your terminal to get started
 ```bash
 export _DIR=~/.himoldeonline && rm -rf $_DIR; mkdir -p $_DIR && \
   cd $_DIR && git clone https://github.com/himoldeonline/himoldeonline-setup.git && \
@@ -14,7 +14,7 @@ export _DIR=~/.himoldeonline && rm -rf $_DIR; mkdir -p $_DIR && \
 * When completed, this repo is then removed and a new copy with all other repos are cloned into ~/himoldeonline where we store all work related to himoldeonline
 
 
-### After running the start.sh script:
+### Step 2. Use the himolde app to manage the environment
 #### Run the below command for a list of options
 ```bash
 himolde
