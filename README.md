@@ -13,7 +13,7 @@ export _DIR=~/.himoldeonline && rm -rf $_DIR; mkdir -p $_DIR && \
 * updates and installs system packages for running and or compiling the tools we use
 * When completed, this repo is then removed and a new copy with all other repos are cloned into ~/himoldeonline where we store all work related to himoldeonline
 
-
+<br>
 ### Step 2. Use the himolde app to manage the environment
 #### Run the below command for a list of options
 ```bash
