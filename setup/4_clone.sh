@@ -47,7 +47,7 @@ __start_git_clone () {
 }
 
 # clone repositories
-_START_DIRECTORY=$(pwd) # preserve the original woring directory before cd`ing into directories which will be part of this script
+_START_DIRECTORY=$(pwd) # preserve the original woring directory
 __start_git_clone $EDX_PLATFORM_ROOT $GIT_URL_EDX_PLATFORM
 __start_git_clone $INSTRUCTION_ROOT $GIT_URL_OPENEDX_INSTRUCTIONS
 __start_git_clone $OPENEDX_DEV_ROOT $GIT_URL_OPENEDX_DEV
