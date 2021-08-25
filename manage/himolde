@@ -30,6 +30,7 @@ source $_LIB_DIR/time.sh || exit 1
 source $_MANAGE_LIB_DIR/tutor.sh || exit 1
 source $_MANAGE_LIB_DIR/nitro.sh || exit 1
 source $_MANAGE_LIB_DIR/browse.sh || exit 1
+source $_MANAGE_LIB_DIR/git.sh || exit 1
 
 
 ### Start ##################
@@ -59,7 +60,7 @@ _mainloop () {
     "15. Add $_HOST_DEV_WEB_PORTAL to docker network: tutor_dev_default" \
     "16. Remove $_HOST_DEV_WEB_PORTAL from docker network: tutor_dev_default" \
     "17. Set Tibe-Theme as Open edX theme for Open edX containers" \
-    '18. Update this script' \
+    '18. Update this script (will do a git pull from himoldeonline-setup)' \
     '19. Open himoldeonline-portal in VS-Code' \
     '20. Update Nitro' \
     '21. Print out Nitro Environment Info' \
@@ -67,6 +68,7 @@ _mainloop () {
     "23. Open $_HOST_DEV_WEB_PORTAL in browser" \
     "24. Open $_HOST_DEV_OPEN_EDX_LMS in browser" \
     "25. Open $_HOST_DEV_OPEN_EDX_CMS in browser" \
+    '26. Do a git pull on all repositories' \
     '0. Exit'
 
   printf 'Number: '
@@ -209,6 +211,9 @@ _mainloop () {
 
   elif [[ $_choice == '25' ]]; then
     _web_browser_open http://$_HOST_DEV_OPEN_EDX_CMS:8001
+
+  elif [[ $_choice == '26' ]]; then
+    _git_pull
 
   fi
   echo -e '\nPress Enter to continue' && read
