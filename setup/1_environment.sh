@@ -33,9 +33,6 @@ else
 
 fi
 
-
-
-
 # run as user
 _info_validation "Script is not run as root"
   _is_root && _abort 'Script must NOT be run as root or with root privileges' || _info_ok "yes"
@@ -43,8 +40,7 @@ _info_validation "Script is not run as root"
 # root access
 _info_validation; sudo -v && _info_ok "ok" || exit 1
 
-
-
+# default shell
 _info_validation "Check default shell"
 _has_profiles && _info_ok $SHELL_TYPE || _abort 'Could not find any shell profile'
 
@@ -63,6 +59,8 @@ if _running_wsl; then
    _info_ok "no"
 fi
 
+# .local/bin in home directory
+_info_validation "$HOME.local/bin in \$PATH"
 echo $PATH | grep -q "$HOME/.local/bin"
 if [[ $? -ne 0 ]]; then
   _log_msg "Add $HOME/.local/bin to PATH"
