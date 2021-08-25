@@ -173,8 +173,11 @@ _mainloop () {
 
   elif [[ $_choice == '18' ]]; then
     cd $SETUP_ROOT
-    git pull
-    exit
+    git pull | grep -q 'Already up to date'
+    if [[ $? == '1' ]]; then
+      echo 'Update installed' && echo 'Exiting this session' &&
+      echo 'Run command himolde to load new changes' && exit
+    fi
 
   elif [[ $_choice == '19' ]]; then
     if ! _is_command code; then
