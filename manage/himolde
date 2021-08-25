@@ -29,7 +29,7 @@ source $_LIB_DIR/hostnames.sh || exit 1
 source $_LIB_DIR/time.sh || exit 1
 source $_MANAGE_LIB_DIR/tutor.sh || exit 1
 source $_MANAGE_LIB_DIR/nitro.sh || exit 1
-source $_MANAGE_LIB_DIR/browse.sh || exit 1
+source $_MANAGE_LIB_DIR/open.sh || exit 1
 source $_MANAGE_LIB_DIR/git.sh || exit 1
 
 
@@ -70,6 +70,7 @@ _mainloop () {
     "25. Open $_HOST_DEV_OPEN_EDX_CMS in browser" \
     '26. Clone all repositories' \
     '27. Do a git pull on all repositories' \
+    '28. Open Practice Repo -> himoldeonline-practice in VS-Code' \
     '0. Exit'
 
   printf 'Number: '
@@ -180,22 +181,7 @@ _mainloop () {
     fi
 
   elif [[ $_choice == '19' ]]; then
-    if ! _is_command code; then
-      echo 'Could not find VS-Code in $PATH'
-      if [[ $_PLATFORM == Darwin ]]; then
-        echo 'This can be fixed by opening VS-Code'
-        echo 'Then open the Command Palette (View -> Command Palette)'
-        echo 'Type shell command to find Shell Command: Install 'code' command in PATH command'
-        echo 'Then re-try this option'
-        echo -e 'You can read more about this here\nhttps://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line'
-      else
-        echo 'Is VS-Code installed?'
-      fi
-    else
-      cd $WEB_PORTAL_ROOT
-      code .
-      cd $HOME
-    fi
+    _vs_code_open $WEB_PORTAL_ROOT
 
   elif [[ $_choice == '20' ]]; then
     nitro self-update
@@ -222,6 +208,9 @@ _mainloop () {
 
   elif [[ $_choice == '27' ]]; then
     _git_pull
+
+  elif [[ $_choice == '28' ]]; then
+    _vs_code_open $PRACTICE_ROOT
 
   fi
   echo -e '\nPress Enter to continue' && read
