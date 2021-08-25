@@ -100,7 +100,7 @@ function _install_nitro () {
 
 
 _nitro_init_environment () {
-  _yes_or_no "Run the Nitro init command" || eval '_info_ok "skipping" && return 0'
+  _yes_or_no "Run the Nitro init command" || return 0
   _log_msg 'Running nitro init'
   echo -e 'We currently use these images:\nMySQL Ver. 8\nRedis'
   nitro init
@@ -108,7 +108,8 @@ _nitro_init_environment () {
 
 
 _nitro_add_himoldeonline_portal () {
-  _yes_or_no "Add our website Portal to nitro" || eval '_info_ok "skipping" && return 0'
+  _yes_or_no "Add our website Portal to nitro" || return 0
+  echo 'y'; exit
   export __cwd=$(pwd)
   cd $WEB_PORTAL_ROOT
   _log_msg 'Adding our Craft CMS platform Portal'
@@ -121,7 +122,7 @@ _nitro_add_himoldeonline_portal () {
 
 
 _nitro_portal_composer_install () {
-  _yes_or_no "Run composer install on $WEB_PORTAL_ROOT" || eval '_info_ok "skipping" && return 0'
+  _yes_or_no "Run composer install on $WEB_PORTAL_ROOT" || return 0
   export __cwd=$(pwd)
   cd $WEB_PORTAL_ROOT
   mv composer.lock composer.lock_bak
@@ -132,7 +133,7 @@ _nitro_portal_composer_install () {
 
 
 _nitro_portal_db_import () {
-  _yes_or_no "Import database for $WEB_PORTAL_ROOT" || eval '_info_ok "skipping" && return 0'
+  _yes_or_no "Import database for $WEB_PORTAL_ROOT" || return 0
   export __cwd=$(pwd)
   cd $WEB_PORTAL_ROOT
   _log_msg "Importing $WEB_PORTAL_ROOT/db/portal.sql"

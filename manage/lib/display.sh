@@ -20,12 +20,11 @@ _list_options () {
 _yes_or_no () {
   _M='Continue'
   if [[ $# -eq 1 ]]; then _M=$1; fi
-  _sub_info "$_M"
+  echo -e "$_M"
   echo -e '\n----------------------------------------------'
-  echo -e '(Y) yes\n\t(N) no'
+  echo -e '(Y) yes\n(N) no'
   echo -e '----------------------------------------------\n'
   read _CNTNUE
-  _line_overwrite
-  if [[ $_CNTNUE == 'y' ]]; then return 0; fi
+  if [[ $_CNTNUE == 'y' ]] || [[ $_CNTNUE == 'Y' ]]; then return 0; fi
   return 1
 }
