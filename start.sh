@@ -41,8 +41,10 @@ echo -e "\e[1;89mRepository:\n\e[1;32mChanges we make to Open edX\e[1;94m -> \e[
 echo -e "\e[1;89mRepository:\n\e[1;32mTibe Theme for Open edX\e[1;94m -> \e[3;91m$TIBE_THEME_ROOT/\e[0m\n"
 echo -e "\e[1;89mRepository:\n\e[1;32mSetup and tools for himoldeonline\e[1;94m -> \e[3;91m$SETUP_ROOT/\e[0m\n"
 echo -e "\e[1;89mRepository:\n\e[1;32mOfficial Tutor Source Code\e[1;94m -> \e[3;91m$TUTOR_ROOT/\e[0m\n"
+echo -e "\e[1;89mRepository:\n\e[1;32mFor practising git, coding and teamwork\e[1;94m -> \e[3;91m$PRACTICE_ROOT/\e[0m\n"
 echo -e "\e[1;89mTutor Environment for Open edX:\n\e[1;32mConfigurations for Open edX\e[1;94m -> \e[3;91m$TUTOR_ENV_ROOT/\e[0m\n"
 echo -e "\e[1;89mTutor Executable:\n\e[1;32mPath where tutor is started from\e[1;94m -> \e[3;91m$HOME/.local/bin/tutor\e[0m\n"
+echo -e "\e[1;89mManage Script for Dev-Environmet:\n\e[1;32mPath where himolde is started from\e[1;94m -> \e[3;91m$HOME/.local/bin/himolde\e[0m\n"
 echo -e "\e[1;89mNitro Executable:\n\e[1;32mPath where nitro is started from\e[1;94m -> \e[3;91m$HOME/.local/bin/nitro\e[0m\n"
 
 _header 'Done!'

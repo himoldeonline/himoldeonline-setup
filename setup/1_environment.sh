@@ -15,7 +15,6 @@ if [[ $_PLATFORM == Linux ]]; then
   elif [[ $DISTRO == *Debian* ]]; then DISTRO=debian
   elif [[ $DISTRO == *Ubuntu* ]]; then DISTRO=ubuntu
   else
-    _PLATFORM_SUPPORTED=false
     _info_error "$DISTRO is not supported"; exit 1
   fi
   _info_ok $DISTRO

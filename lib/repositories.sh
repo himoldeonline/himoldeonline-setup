@@ -22,3 +22,6 @@ GIT_URL_TUTOR='https://github.com/overhangio/tutor'
 
 # himoldeonline craft cms web portal
 GIT_URL_WEB_PORTAL='git@github.com:himoldeonline/himoldeonline-portal.git'
+
+# practice repository
+GIT_URL_PRACTICE='git@github.com:himoldeonline/himoldeonline-practice.git'
