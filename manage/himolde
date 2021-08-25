@@ -68,7 +68,8 @@ _mainloop () {
     "23. Open $_HOST_DEV_WEB_PORTAL in browser" \
     "24. Open $_HOST_DEV_OPEN_EDX_LMS in browser" \
     "25. Open $_HOST_DEV_OPEN_EDX_CMS in browser" \
-    '26. Do a git pull on all repositories' \
+    '26. Clone all repositories' \
+    '27. Do a git pull on all repositories' \
     '0. Exit'
 
   printf 'Number: '
@@ -213,6 +214,10 @@ _mainloop () {
     _web_browser_open http://$_HOST_DEV_OPEN_EDX_CMS:8001
 
   elif [[ $_choice == '26' ]]; then
+    # echo 'not implemented yet'
+    _git_clone
+
+  elif [[ $_choice == '27' ]]; then
     _git_pull
 
   fi
