@@ -1,11 +1,13 @@
 # logging functions
 
 _log_init () {
-  # 1st arg: path to logfile
+  # 1st arg: name of logfile
   # 2nd arg: specify directory to store log (optional)
-  export _LOG_FILE=$1
+
   if [[ $# -gt 1 ]]; then
     mkdir -p $2 && export _LOG_FILE=$2/$_LOG_FILE
+  else
+    export _LOG_FILE=$HOME/$1
   fi
   _L='###############################'
   _TIME=$(date +"%Y-%m-%d %H:%M:%S")
