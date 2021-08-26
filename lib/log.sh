@@ -5,7 +5,7 @@ _log_init () {
   # 2nd arg: specify directory to store log (optional)
 
   if [[ $# -gt 1 ]]; then
-    mkdir -p $2 && export _LOG_FILE=$2/$_LOG_FILE
+    mkdir -p $2 && export _LOG_FILE=$2/$1
   else
     export _LOG_FILE=$HOME/$1
   fi
