@@ -51,7 +51,7 @@ _git_clone () {
     fi
     cd $_dir
     git fetch --all --tags  || return 1
-    git checkout $_tag && echo -e "\033[0;32m$_tag checked out in $_dir\e[0m\n" || return 1
+    git checkout $_tag && echo -e "\033[0;32m$_tag checked out in $_dir\033[0m\n" || return 1
   }
   # checkout to correct tags
   _run_git_checkout_tags $TAG_EDX_PLATFORM $EDX_PLATFORM_ROOT || echo "Could not checkout $TAG_EDX_PLATFORM"
@@ -60,11 +60,11 @@ _git_clone () {
     _branch=$1
     _dir=$2
     if ! _is_cloned $_dir; then
-      echo -e "\033[0;31mCan not checkout branch because $_dir is not cloned\e[0m\n"
+      echo -e "\033[0;31mCan not checkout branch because $_dir is not cloned\033[0m\n"
       return 1
     fi
     cd $_dir
-    git checkout $_branch && echo -e "\033[0;32m$_branch checked out in $_dir\e[0m\n" || return 1
+    git checkout $_branch && echo -e "\033[0;32m$_branch checked out in $_dir\033[0m\n" || return 1
   }
   # checkout to correct branches
   _run_git_checkout_branch $BRANCH_OPENEDX_DEV $OPENEDX_DEV_ROOT || echo "Could not checkout $BRANCH_OPENEDX_DEV"
@@ -110,12 +110,12 @@ _git_pull () {
       return 0
     fi
     if ! __check; then
-      echo -e "\033[0;31mCould not do git pull because you have uncommited changes inside $_dir\e[0m\n"
+      echo -e "\033[0;31mCould not do git pull because you have uncommited changes inside $_dir\033[0m\n"
       return 1
     fi
 
     # if all things pass, do git pull
-    git pull && echo -e "\033[0;32mPulled down newest changes from $_url\e[0m\n"
+    git pull && echo -e "\033[0;32mPulled down newest changes from $_url\033[0m\n"
     sleep 0.5
 
   }
