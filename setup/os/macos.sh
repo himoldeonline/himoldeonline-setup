@@ -22,5 +22,6 @@ _get_python () {
 }
 
 _get_docker () {
-  brew install docker
+  brew install --cask docker && sleep 5 && open /Applications/Docker.app
+  echo 'Complete the Docker installation in the GUI then press Enter to continue'; read
 }
