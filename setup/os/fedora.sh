@@ -46,12 +46,17 @@ _install_packages () {
     return 0
   fi
 
-  _info_installation "The following $1 packages/dependencies will be installed:\n"
+  _info_installation "The following $1 packages/dependencies is needed:\n"
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
     echo -e "\t\t\t$i"
   done
-  _continue "\t\t"
+  echo 'Install Listed Packages? [y/n]'
+	read _c
+  if [[ $_c != 'y' ]]; then
+		echo 'Skip installing'
+		return 0
+	fi
 
   for i in "${PACKAGES_TO_BE_INSTALLED[@]}"
   do
