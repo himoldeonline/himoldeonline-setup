@@ -21,7 +21,7 @@ _add_gitconfig () {
     git config --global user.email $GIT_EMAIL
 }
 
-_add_ssh_key () {
+_generate_ssh_key () {
   # 1st arg: /path/to/key
   ssh-keygen -t rsa -b 4096 -f $1 -q -N ""
 }

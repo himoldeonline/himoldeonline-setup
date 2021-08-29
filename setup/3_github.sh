@@ -9,14 +9,19 @@ if _file_exist $SSH_KEY; then
 else
   _log_msg 'Generating SSH-Key'
   _sub_info "Generating SSH-Key"
-  _add_ssh_key $SSH_KEY && _print_ssh_pub || exit 1
-  if _service_running ssh-agent; then
-  _log_msg "Adding $SSH_KEY to SSH-Agent" && ssh-add $SSH_KEY
-  fi
-  _sub_info 'Login to your github account and go to https://github.com/settings/ssh/new and add the above key then press enter to continue'
-  read
+  _generate_ssh_key $SSH_KEY && _print_ssh_pub || exit 1
+    _sub_info 'Login to your github account and go to https://github.com/settings/ssh/new and add the above key then press enter to continue'
+    read
 fi
 
+if ! _service_running ssh-agent; then
+  _is_command ssh-agent && eval "$(ssh-agent)" && ssh-add $SSH_KEY
+  _log_msg "Starting ssh-agent and adding $SSH_KEY to SSH-Agent" && ssh-add $SSH_KEY
+
+elif _service_running ssh-agent; then
+  _log_msg "Adding $SSH_KEY to SSH-Agent"
+  ssh-add $SSH_KEY
+fi
 
 _info_validation 'SSH-Authentication against Github'
 if _ssh_github_validate; then
