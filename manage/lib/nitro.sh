@@ -109,7 +109,6 @@ _nitro_init_environment () {
 
 _nitro_add_himoldeonline_portal () {
   _yes_or_no "Add our website Portal to nitro" || return 0
-  echo 'y'; exit
   export __cwd=$(pwd)
   cd $WEB_PORTAL_ROOT
   _log_msg 'Adding our Craft CMS platform Portal'
